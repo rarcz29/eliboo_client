@@ -6,7 +6,7 @@ import { IdentityLayout, Login, Register } from "./views/identity";
 function App() {
     const [token, setToken] = useState();
 
-    return token ? (
+    return !token ? (
         <Router>
             <IdentityLayout>
                 <Switch>

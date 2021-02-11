@@ -6,7 +6,7 @@ import { MainLayout, HomeView, MyListView } from "./views/authenticated";
 function App() {
     const [token, setToken] = useState();
 
-    return !token ? (
+    return token ? (
         <IdentityLayout>
             <Switch>
                 <Route path={["/", "/login"]} component={LoginView} />

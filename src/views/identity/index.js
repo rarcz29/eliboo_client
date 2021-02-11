@@ -1,5 +1,5 @@
 import IdentityLayout from "./IdentityLayout";
-import Login from "./Login";
-import Register from "./Register";
+import LoginView from "./LoginView";
+import RegisterView from "./RegisterView";
 
-export { IdentityLayout, Login, Register };
+export { IdentityLayout, LoginView, RegisterView };

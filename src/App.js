@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import MainLayout from "./views/authenticated/MainLayout";
-import { IdentityLayout, Login, Register } from "./views/identity";
+import { IdentityLayout, LoginView, RegisterView } from "./views/identity";
+import { MainLayout, HomeView, MyListView } from "./views/authenticated";
 
 function App() {
     const [token, setToken] = useState();
@@ -11,53 +11,28 @@ function App() {
             <IdentityLayout>
                 <Switch>
                     <Route path="/">
-                        <Login />
+                        <LoginView />
                     </Route>
                     <Route path="/register">
-                        <Register />
+                        <RegisterView />
                     </Route>
                 </Switch>
             </IdentityLayout>
         </Router>
     ) : (
         <Router>
-            <Route path="/abcd">
-                <h1>ABCD</h1>
-            </Route>
+            <MainLayout>
+                <Switch>
+                    <Route path="/home">
+                        <HomeView />
+                    </Route>
+                    <Route path="/list">
+                        <MyListView />
+                    </Route>
+                </Switch>
+            </MainLayout>
         </Router>
     );
-
-    // if (!token) {
-    //     return (
-    //         <Router>
-    //             <IdentityLayout
-    //                 children={
-    //                     <Switch>
-    //                         <Route path="/">
-    //                             <Login />
-    //                         </Route>
-    //                         <Route path="/register">
-    //                             <Register />
-    //                         </Route>
-    //                     </Switch>
-    //                 }
-    //             />
-    //         </Router>
-    //     );
-    // }
-
-    // return (
-    //     <Router>
-    //         <Switch>
-    //             <Route path="/identity">
-    //                 <IdentityLayout />
-    //             </Route>
-    //             <Route path="/">
-    //                 <MainLayout />
-    //             </Route>
-    //         </Switch>
-    //     </Router>
-    // );
 }
 
 export default App;

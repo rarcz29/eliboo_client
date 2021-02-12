@@ -6,7 +6,7 @@ import COLORS from "../../styles/colors";
 
 const StyledLink = styled(Link)`
     color: ${COLORS.foreground.secondary};
-    font-size: 36px;
+    font-size: 30px;
     font-weight: bold;
     letter-spacing: 0.05em;
     text-decoration: none;
@@ -26,9 +26,6 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledAside = styled.aside`
-    background-color: ${COLORS.background.darkerSecondary};
-    height: 100vh;
-    width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -38,7 +35,7 @@ const StyledAside = styled.aside`
 const Navbar = ({ height, width }) => {
     return (
         // TODO: Update paths
-        <StyledAside height={height} width={width}>
+        <StyledAside style={{ width: width, height: height }}>
             <StyledLink to={ROUTING.home}>Home</StyledLink>
             <StyledLink to={ROUTING.myList}>My list</StyledLink>
             <StyledLink to={ROUTING.home}>Reading now</StyledLink>

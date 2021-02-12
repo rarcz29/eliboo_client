@@ -1,12 +1,24 @@
 import React from "react";
-import Navbar from "../../components/Layout/Navbar";
+import { Logo, Navbar } from "../../components/Layout";
+import ItemContainer from "../../containers/ItemContainer";
+import SidePanelContainer from "../../containers/SidePanelContainer";
+import COLORS from "../../styles/colors";
 
-const layout = ({ children }) => {
+const MainLayout = ({ children }) => {
     return (
         <>
-            <Navbar width={400} height={400} color="red" />
+            <SidePanelContainer
+                width="400px"
+                height="100vh"
+                backgroundColor={COLORS.background.darkerSecondary}
+            >
+                <ItemContainer width="100%" height="16%">
+                    <Logo />
+                </ItemContainer>
+                <Navbar width="100%" height="84%" />
+            </SidePanelContainer>
         </>
     );
 };
 
-export default layout;
+export default MainLayout;

@@ -1,23 +1,39 @@
-import React from "react";
-import { Logo, Navbar } from "../../components/Layout";
-import ItemContainer from "../../containers/ItemContainer";
-import SidePanelContainer from "../../containers/SidePanelContainer";
+import React, { useState } from "react";
+import { Logo, Navbar, Header } from "../../components/Layout";
 import COLORS from "../../styles/colors";
+import styled from "styled-components";
+
+const Container = styled.div`
+    height: 100vh;
+    display: flex;
+`;
+
+const LeftSideContainer = styled(Container)`
+    width: 370px;
+    background-color: ${COLORS.background.darkerSecondary};
+    flex-direction: column;
+    align-items: center;
+`;
+
+const RightSideContainer = styled(Container)`
+    width: calc(100% - 370px);
+    flex-direction: column;
+`;
 
 const MainLayout = ({ children }) => {
+    const [page, setPage] = useState("Home");
+
     return (
-        <>
-            <SidePanelContainer
-                width="400px"
-                height="100vh"
-                backgroundColor={COLORS.background.darkerSecondary}
-            >
-                <ItemContainer width="100%" height="16%">
-                    <Logo />
-                </ItemContainer>
-                <Navbar width="100%" height="84%" />
-            </SidePanelContainer>
-        </>
+        <Container>
+            <LeftSideContainer>
+                <Logo />
+                <Navbar width="100%" height="100%" setPage={setPage} />
+            </LeftSideContainer>
+            <RightSideContainer>
+                <Header currentPage={page} />
+                <main></main>
+            </RightSideContainer>
+        </Container>
     );
 };
 

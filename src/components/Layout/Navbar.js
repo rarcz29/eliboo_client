@@ -6,7 +6,7 @@ import COLORS from "../../styles/colors";
 
 const StyledLink = styled(Link)`
     color: ${COLORS.foreground.secondary};
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     letter-spacing: 0.05em;
     text-decoration: none;
@@ -28,18 +28,26 @@ const StyledLink = styled(Link)`
 const StyledAside = styled.aside`
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 `;
 
-const Navbar = ({ height, width }) => {
+const Navbar = ({ height, width, setPage }) => {
     return (
         // TODO: Update paths
         <StyledAside style={{ width: width, height: height }}>
-            <StyledLink to={ROUTING.home}>Home</StyledLink>
-            <StyledLink to={ROUTING.myList}>My list</StyledLink>
-            <StyledLink to={ROUTING.home}>Reading now</StyledLink>
-            <StyledLink to={ROUTING.home}>Bookstands</StyledLink>
+            <StyledLink to={ROUTING.home} onClick={setPage("Home")}>
+                Home
+            </StyledLink>
+            <StyledLink to={ROUTING.myList} onClick={setPage("My List")}>
+                My list
+            </StyledLink>
+            <StyledLink to={ROUTING.home} onClick={setPage("Reading Now")}>
+                Reading now
+            </StyledLink>
+            <StyledLink to={ROUTING.home} onClick={setPage("Bookshelves")}>
+                Bookshelves
+            </StyledLink>
         </StyledAside>
     );
 };

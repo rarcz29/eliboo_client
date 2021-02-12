@@ -1,6 +1,6 @@
-const routing = {
+const ROUTING = {
     home: "/home",
     myList: "/list",
 };
 
-export default routing;
+export default ROUTING;

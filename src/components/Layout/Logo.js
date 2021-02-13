@@ -1,26 +1,20 @@
 import React from "react";
+import { ReactComponent as ReactLogo } from "../../assets/logo.svg";
 import styled from "styled-components";
-import COLORS from "../../styles/colors";
 
-// TODO: tmp color and font size
-const StyledH1 = styled.h1`
-    letter-spacing: 0.03em;
-    font-weight: normal;
-    color: ${COLORS.foreground.primary};
-    font-size: 60px;
+const StyledLogo = styled(ReactLogo)`
+    width: 100%;
+    height: auto;
 `;
 
 const StyledDiv = styled.div`
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: ${(props) => props.width};
 `;
 
-const Logo = () => {
+const Logo = ({ width }) => {
     return (
-        <StyledDiv>
-            <StyledH1>eliboo</StyledH1>
+        <StyledDiv width={width}>
+            <StyledLogo />
         </StyledDiv>
     );
 };

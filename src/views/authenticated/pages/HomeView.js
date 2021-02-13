@@ -21,6 +21,13 @@ const ButtonsContainer = styled.div`
     justify-content: space-around;
 `;
 
+const TmpDiv = styled.div`
+    margin-top: 0.5rem;
+    width: 100%;
+    height: 400px;
+    background: red;
+`;
+
 const inputs = ["Title", "Genre", "Author", "Bookshelf"];
 const submitButtons1 = ["Add", "Search"];
 const submitButtons2 = ["Add to my list", "Remove"];
@@ -46,6 +53,21 @@ const HomeView = () => {
                     {submitButtons1.map((button) => (
                         <Button
                             type="submit"
+                            width="30%"
+                            height="45px"
+                            borderRadius="1.5rem"
+                            color={COLORS.foreground.primary}
+                            backgroundColor={COLORS.buttons.blue}
+                            highlightColor={COLORS.buttons.blueHighlighted}
+                        >
+                            {button}
+                        </Button>
+                    ))}
+                </ButtonsContainer>
+                <TmpDiv></TmpDiv>
+                <ButtonsContainer>
+                    {submitButtons2.map((button) => (
+                        <Button
                             width="30%"
                             height="45px"
                             borderRadius="1.5rem"

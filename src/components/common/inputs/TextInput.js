@@ -19,6 +19,22 @@ const StyledInput = styled.input`
     &:focus {
         border-color: ${(props) => props.colorPrimary};
     }
+
+    &::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: ${(props) => props.colorSecondary};
+        opacity: 1;
+    }
+
+    &:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: ${(props) => props.colorSecondary};
+    }
+
+    &::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: ${(props) => props.colorSecondary};
+    }
 `;
 
 const TextInput = ({

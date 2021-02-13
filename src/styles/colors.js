@@ -10,6 +10,7 @@ const COLORS = {
     },
     buttons: {
         blue: "#528ED3",
+        blueHighlighted: "#2A64A8",
     },
 };
 

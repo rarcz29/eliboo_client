@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Logo, Navbar, Header } from "../../components/Layout";
+import { Logo, Navbar, Header } from "../../components/layout";
 import COLORS from "../../styles/colors";
 import styled from "styled-components";
 
@@ -20,6 +20,10 @@ const RightSideContainer = styled(Container)`
     flex-direction: column;
 `;
 
+const StyledMain = styled.main`
+    padding: 20px;
+`;
+
 const MainLayout = ({ children }) => {
     const [page, setPage] = useState("Home");
 
@@ -31,7 +35,7 @@ const MainLayout = ({ children }) => {
             </LeftSideContainer>
             <RightSideContainer>
                 <Header currentPage={page} />
-                <main>{children}</main>
+                <StyledMain>{children}</StyledMain>
             </RightSideContainer>
         </Container>
     );

@@ -1,10 +1,11 @@
 import React from "react";
+import TextInput from "../../../components/common/inputs/TextInput";
 
 const HomeView = () => {
     return (
-        <div>
+        <>
             <h2>Home</h2>
-        </div>
+        </>
     );
 };
 

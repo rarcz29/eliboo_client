@@ -12,7 +12,6 @@ const StyledH1 = styled.h1`
 
 const StyledDiv = styled.div`
     height: 70px;
-    background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;

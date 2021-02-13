@@ -31,7 +31,7 @@ const MainLayout = ({ children }) => {
             </LeftSideContainer>
             <RightSideContainer>
                 <Header currentPage={page} />
-                <main></main>
+                <main>{children}</main>
             </RightSideContainer>
         </Container>
     );

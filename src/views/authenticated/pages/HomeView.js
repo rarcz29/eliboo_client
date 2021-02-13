@@ -1,6 +1,12 @@
 import React from "react";
 import TextInput from "../../../components/common/inputs/TextInput";
 import Button from "../../../components/common/buttons/Button";
+import {
+    Table,
+    TableElement,
+    TableRow,
+    TableHeader,
+} from "../../../components/common/tables";
 import COLORS from "../../../styles/colors";
 import styled from "styled-components";
 
@@ -25,7 +31,6 @@ const TmpDiv = styled.div`
     margin-top: 0.5rem;
     width: 100%;
     height: 400px;
-    background: red;
 `;
 
 const inputs = ["Title", "Genre", "Author", "Bookshelf"];
@@ -39,7 +44,7 @@ const HomeView = () => {
                 <InputsContainer>
                     {inputs.map((input) => (
                         <TextInput
-                            name={input}
+                            name={input.toLowerCase()}
                             width="40%"
                             height="40px"
                             placeholder={input}
@@ -64,7 +69,36 @@ const HomeView = () => {
                         </Button>
                     ))}
                 </ButtonsContainer>
-                <TmpDiv></TmpDiv>
+                <Table width="100%" height="400px">
+                    <TableRow evenColor={COLORS.background.lighterSecondary}>
+                        <TableHeader>header1</TableHeader>
+                        <TableHeader>header2</TableHeader>
+                        <TableHeader>header3</TableHeader>
+                        <TableHeader>header4</TableHeader>
+                        <TableHeader>header5</TableHeader>
+                    </TableRow>
+                    <TableRow evenColor={COLORS.background.lighterSecondary}>
+                        <TableElement>element1</TableElement>
+                        <TableElement>element2</TableElement>
+                        <TableElement>element3</TableElement>
+                        <TableElement>element4</TableElement>
+                        <TableElement>element5</TableElement>
+                    </TableRow>
+                    <TableRow evenColor={COLORS.background.lighterSecondary}>
+                        <TableElement>element1</TableElement>
+                        <TableElement>element2</TableElement>
+                        <TableElement>element3</TableElement>
+                        <TableElement>element4</TableElement>
+                        <TableElement>element5</TableElement>
+                    </TableRow>
+                    <TableRow evenColor={COLORS.background.lighterSecondary}>
+                        <TableElement>element1</TableElement>
+                        <TableElement>element2</TableElement>
+                        <TableElement>element3</TableElement>
+                        <TableElement>element4</TableElement>
+                        <TableElement>element5</TableElement>
+                    </TableRow>
+                </Table>
                 <ButtonsContainer>
                     {submitButtons2.map((button) => (
                         <Button

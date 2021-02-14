@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { createGlobalStyle, css } from "styled-components";
 import COLORS from "../../styles/colors";
 import Logo from "../../components/layout/Logo";
 import Button from "../../components/common/buttons/Button";
 import { Link } from "react-router-dom";
+import ROUTING from "../../constants/routing";
+import Separator from "../../components/common/separators/Separator";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -43,16 +45,46 @@ const ErrorMessageContainer = styled.div`
     color: red;
 `;
 
+const STATUS = ["Log in", "Sign up"];
+
 const IdentityLayout = ({ children }) => {
+    const [linkPath, setLinkPath] = useState(ROUTING.login);
+    const [linkText, setLinkText] = useState(STATUS[1]);
+    const [submitText, setSubmitText] = useState(STATUS[0]);
+    const [errorMessage, setErrorMessage] = useState("test message");
+
+    const resetErrorMessage = () => {
+        setErrorMessage("test message changed");
+    };
+
+    const handleButtonClick = () => {
+        resetErrorMessage();
+    };
+
+    const handleLinkClick = () => {
+        resetErrorMessage();
+
+        if (linkPath === ROUTING.login) {
+            setLinkPath(ROUTING.register);
+            setLinkText(STATUS[1]);
+            setSubmitText(STATUS[0]);
+        } else {
+            setLinkPath(ROUTING.login);
+            setLinkText(STATUS[0]);
+            setSubmitText(STATUS[1]);
+        }
+    };
+
     return (
         <>
             <GlobalStyle />
             <Container>
                 <Logo width="90%" />
-                <ErrorMessageContainer>error message</ErrorMessageContainer>
+                <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
                 <StyledForm>
                     {children}
                     <Button
+                        onClick={handleButtonClick}
                         type="submit"
                         width="80%"
                         height="45px"
@@ -61,9 +93,12 @@ const IdentityLayout = ({ children }) => {
                         backgroundColor={COLORS.buttons.blue}
                         highlightColor={COLORS.buttons.blueHighlighted}
                     >
-                        Log in
+                        {submitText}
                     </Button>
-                    <Link to="/register">Sign up</Link>
+                    <Separator text="or" width="80%" />
+                    <Link to={linkPath} onClick={handleLinkClick}>
+                        {linkText}
+                    </Link>
                 </StyledForm>
             </Container>
         </>

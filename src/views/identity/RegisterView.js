@@ -14,11 +14,11 @@ const RegisterView = () => {
         <>
             {inputs.map((input) => (
                 <TextInput
-                    name={input[0]}
+                    name={input[0].split(" ")[0]}
                     type={input[1]}
                     width="80%"
                     height="40px"
-                    placeholder={input[0].split(" ")[0]}
+                    placeholder={input[0]}
                     colorPrimary={COLORS.foreground.primary}
                     colorSecondary={COLORS.foreground.secondary}
                     borderWidth="2px"

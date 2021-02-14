@@ -26,6 +26,7 @@ const Button = ({
     highlightColor,
     color,
     fontSize,
+    onClick,
     children,
 }) => {
     return (
@@ -38,6 +39,7 @@ const Button = ({
             highlightColor={highlightColor}
             color={color}
             fontSize={fontSize}
+            onClick={onClick}
         >
             {children}
         </StyledButton>

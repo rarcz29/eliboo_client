@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
     body {
         background-color: ${COLORS.background.darkerSecondary};
     }
+
+    input {
+        margin-bottom: 1.8rem;
+    }
 `;
 
 const flexCenterStyle = css`

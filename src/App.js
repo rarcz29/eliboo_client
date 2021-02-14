@@ -9,7 +9,7 @@ function App() {
     return !token ? (
         <IdentityLayout>
             <Switch>
-                <Route path={["/", "/login"]} component={LoginView} />
+                <Route exact path={["/", "/login"]} component={LoginView} />
                 <Route path="/register" component={RegisterView} />
                 <Redirect from="/home" to="/login" />
                 <Redirect from="/list" to="/login" />
@@ -18,7 +18,7 @@ function App() {
     ) : (
         <MainLayout>
             <Switch>
-                <Route path={["/", "/home"]} component={HomeView} />
+                <Route exact path={["/", "/home"]} component={HomeView} />
                 <Route path="/list" component={MyListView} />
             </Switch>
         </MainLayout>

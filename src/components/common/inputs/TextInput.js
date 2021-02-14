@@ -38,6 +38,7 @@ const StyledInput = styled.input`
 `;
 
 const TextInput = ({
+    className,
     width,
     height,
     name,
@@ -53,6 +54,7 @@ const TextInput = ({
 }) => {
     return (
         <StyledInput
+            className={className}
             height={height}
             width={width}
             name={name}

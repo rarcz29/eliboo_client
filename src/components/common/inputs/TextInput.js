@@ -12,7 +12,7 @@ const StyledInput = styled.input`
     border: none;
     border-bottom: ${(props) => props.borderWidth || "1px"} solid
         ${(props) => props.colorSecondary || "black"};
-    font-size: ${(props) => props.fontSize};
+    font-size: ${(props) => props.fontSize || "1rem"};
     transition: border-color ease-in-out 0.3s;
 
     &:hover,

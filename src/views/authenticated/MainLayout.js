@@ -30,7 +30,7 @@ const MainLayout = ({ children }) => {
     return (
         <Container>
             <LeftSideContainer>
-                <Logo width="70%" />
+                <Logo width="80%" />
                 <Navbar width="100%" height="100%" setPage={setPage} />
             </LeftSideContainer>
             <RightSideContainer>

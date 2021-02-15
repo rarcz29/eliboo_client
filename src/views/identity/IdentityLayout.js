@@ -3,10 +3,10 @@ import styled, { createGlobalStyle, css } from "styled-components";
 import COLORS from "../../styles/colors";
 import Logo from "../../components/layout/Logo";
 import Button from "../../components/common/buttons/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ROUTING from "../../constants/routing";
 import Separator from "../../components/common/separators/Separator";
-import API_ENDPOINTS from "../../constants/apiEndpoints";
+import authService from "../../services/authService";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -62,11 +62,13 @@ const StandardLink = styled(Link)`
 
 const STATUS = ["Log in", "Sign up"];
 
-const IdentityLayout = ({ children }) => {
+const IdentityLayout = ({ authenticate, children }) => {
     const [linkPath, setLinkPath] = useState(ROUTING.register);
     const [linkText, setLinkText] = useState(STATUS[1]);
     const [submitText, setSubmitText] = useState(STATUS[0]);
     const [errorMessage, setErrorMessage] = useState("test message");
+
+    const history = useHistory();
 
     const resetErrorMessage = () => {
         setErrorMessage("test message changed");
@@ -90,24 +92,14 @@ const IdentityLayout = ({ children }) => {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const plainFormData = Object.fromEntries(formData.entries());
         const formDataJsonString = JSON.stringify(plainFormData);
-
-        fetch(API_ENDPOINTS.REGISTER_URL, {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-            method: "POST",
-            body: formDataJsonString,
-        })
-            .then((response) => response.text())
-            .then((data) => {
-                console.log(data);
-            });
+        authService.login(formDataJsonString).then(() => {
+            authenticate();
+        });
     };
 
     return (

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { IdentityLayout, LoginView, RegisterView } from "./views/identity";
 import { MainLayout, HomeView, MyListView } from "./views/authenticated";
+import authService from "./services/authService";
 
 function App() {
-    const [token, setToken] = useState();
+    const [authenticated, setAuthenticated] = useState(
+        authService.isAuthenticated()
+    );
 
-    return !token ? (
-        <IdentityLayout>
+    return !authenticated ? (
+        <IdentityLayout authenticate={() => setAuthenticated(true)}>
             <Switch>
                 <Route exact path={["/", "/login"]} component={LoginView} />
                 <Route path="/register" component={RegisterView} />
@@ -16,7 +19,12 @@ function App() {
             </Switch>
         </IdentityLayout>
     ) : (
-        <MainLayout>
+        <MainLayout
+            logout={() => {
+                authService.logout();
+                setAuthenticated(false);
+            }}
+        >
             <Switch>
                 <Route exact path={["/", "/home"]} component={HomeView} />
                 <Route path="/list" component={MyListView} />

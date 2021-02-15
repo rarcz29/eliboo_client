@@ -24,12 +24,13 @@ const StyledMain = styled.main`
     padding: 20px;
 `;
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ logout, children }) => {
     const [page, setPage] = useState("Home");
 
     return (
         <Container>
             <LeftSideContainer>
+                <button onClick={logout}>logout</button>
                 <Logo width="80%" />
                 <Navbar width="100%" height="100%" setPage={setPage} />
             </LeftSideContainer>

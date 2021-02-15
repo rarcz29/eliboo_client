@@ -1,40 +1,58 @@
-import { LOGIN_URL, REGISTER_URL } from "../constants/apiEndpoints";
+import API_ENDPOINTS from "../constants/apiEndpoints";
 
 const LOCAL_STORAGE_DATA_NAME = "user_token";
 
-// TODO: Save token in the local storage
-const login = (email, password) => {
-    let formattedData = JSON.stringify({
-        email: email,
-        password: password,
-    });
+const postData = async (formDataJsonString, url) => {
+    let response = null;
 
-    fetch(LOGIN_URL, { method: "POST", body: formattedData })
-        .then((response) => response.json())
-        .then((data) => {
-            localStorage.setItem(LOCAL_STORAGE_DATA_NAME, "change_me");
-        });
+    await fetch(url, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        method: "POST",
+        body: formDataJsonString,
+    })
+        .then((res) => res.json())
+        .then((data) => (response = data));
+
+    return response;
 };
 
-// TODO: Return received data
-const register = (username, email, password) => {
-    let formattedData = JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
-    });
+// TODO: Save token in the local storage
+const login = async (formDataJsonString) => {
+    const response = await postData(
+        formDataJsonString,
+        API_ENDPOINTS.LOGIN_URL
+    );
 
-    fetch(REGISTER_URL, { method: "POST", body: formattedData })
-        .then((response) => response.json())
-        .then((data) => {});
+    if (response !== null) {
+        localStorage.setItem(LOCAL_STORAGE_DATA_NAME, response.token);
+        console.log(getUserData());
+    }
+};
+
+// TODO: response
+const register = async (formDataJsonString) => {
+    await postData(formDataJsonString, API_ENDPOINTS.REGISTER_URL);
 };
 
 const logout = () => {
     localStorage.removeItem(LOCAL_STORAGE_DATA_NAME);
 };
 
-const getUserData = () => {
-    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA_NAME));
+const isAuthenticated = () => {
+    return getUserData() !== null;
 };
 
-export default { login, register, logout, getUserData };
+const getUserData = () => {
+    const token = localStorage.getItem(LOCAL_STORAGE_DATA_NAME);
+
+    try {
+        return JSON.parse(atob(token.split(".")[1]));
+    } catch (e) {
+        return null;
+    }
+};
+
+export default { login, register, logout, isAuthenticated, getUserData };

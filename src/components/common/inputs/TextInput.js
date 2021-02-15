@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+// TODO: disable highlighting input when disabled
 const StyledInput = styled.input`
     width: ${(props) => props.width};
     height: ${(props) => props.height};
@@ -13,6 +14,7 @@ const StyledInput = styled.input`
     border-bottom: ${(props) => props.borderWidth || "1px"} solid
         ${(props) => props.colorSecondary || "black"};
     font-size: ${(props) => props.fontSize || "1rem"};
+    display: ${(props) => props.display};
     transition: border-color ease-in-out 0.3s;
 
     &:hover,
@@ -50,6 +52,8 @@ const TextInput = ({
     colorSecondary,
     borderWidth,
     fontSize,
+    disabled,
+    display,
     children,
 }) => {
     return (
@@ -66,6 +70,8 @@ const TextInput = ({
             colorSecondary={colorSecondary}
             borderWidth={borderWidth}
             fontSize={fontSize}
+            disabled={disabled}
+            display={display}
         >
             {children}
         </StyledInput>

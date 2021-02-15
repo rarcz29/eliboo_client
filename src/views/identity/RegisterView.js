@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import TextInput from "../../components/common/inputs/TextInput";
 import COLORS from "../../styles/colors";
+
+const CheckboxContainer = styled.div`
+    width: 80%;
+`;
 
 const inputs = [
     ["username", "text"],
@@ -10,6 +15,12 @@ const inputs = [
 ];
 
 const RegisterView = () => {
+    const [isNewLibrary, setIsNewLibrary] = useState(true);
+
+    const handleCkeckboxChange = () => {
+        setIsNewLibrary(!isNewLibrary);
+    };
+
     return (
         <>
             {inputs.map((input) => (
@@ -24,6 +35,30 @@ const RegisterView = () => {
                     borderWidth="2px"
                 />
             ))}
+
+            <CheckboxContainer>
+                <input
+                    type="checkbox"
+                    id="scales"
+                    name="createNewLibrary"
+                    checked={isNewLibrary}
+                    value="1"
+                    onChange={handleCkeckboxChange}
+                />
+                <label htmlFor="scales">Create new library</label>
+            </CheckboxContainer>
+
+            <TextInput
+                name="libraryCode"
+                type="password"
+                width="80%"
+                height="40px"
+                placeholder="library code"
+                colorPrimary={COLORS.foreground.primary}
+                colorSecondary={COLORS.foreground.secondary}
+                borderWidth="2px"
+                display={isNewLibrary ? "none" : "block"}
+            />
         </>
     );
 };

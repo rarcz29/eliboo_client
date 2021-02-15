@@ -6,6 +6,7 @@ import Button from "../../components/common/buttons/Button";
 import { Link } from "react-router-dom";
 import ROUTING from "../../constants/routing";
 import Separator from "../../components/common/separators/Separator";
+import API_ENDPOINTS from "../../constants/apiEndpoints";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -13,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     input {
-        margin-bottom: 1.8rem;
+        margin-bottom: 1.6rem;
     }
 `;
 
@@ -89,13 +90,33 @@ const IdentityLayout = ({ children }) => {
         }
     };
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const plainFormData = Object.fromEntries(formData.entries());
+        const formDataJsonString = JSON.stringify(plainFormData);
+
+        fetch(API_ENDPOINTS.REGISTER_URL, {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            method: "POST",
+            body: formDataJsonString,
+        })
+            .then((response) => response.text())
+            .then((data) => {
+                console.log(data);
+            });
+    };
+
     return (
         <>
             <GlobalStyle />
             <Container>
                 <Logo width="90%" />
                 <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-                <StyledForm>
+                <StyledForm onSubmit={handleSubmit}>
                     {children}
                     <Button
                         onClick={handleButtonClick}
@@ -109,11 +130,11 @@ const IdentityLayout = ({ children }) => {
                     >
                         {submitText}
                     </Button>
-                    <StyledSeparator text="or" width="80%" />
-                    <StandardLink to={linkPath} onClick={handleLinkClick}>
-                        {linkText}
-                    </StandardLink>
                 </StyledForm>
+                <StyledSeparator text="or" width="80%" />
+                <StandardLink to={linkPath} onClick={handleLinkClick}>
+                    {linkText}
+                </StandardLink>
             </Container>
         </>
     );

@@ -19,11 +19,11 @@ const StyledText = styled.p`
     padding: 0;
 `;
 
-const Separator = ({ width, text, color }) => {
+const Separator = ({ className, width, text, color }) => {
     const textElement = text ? <StyledText>{text}</StyledText> : "";
 
     return (
-        <Container width={width} color={color}>
+        <Container className={className} width={width} color={color}>
             <StyledLine color={color} />
             {textElement}
             <StyledLine color={color} />

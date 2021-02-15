@@ -45,10 +45,24 @@ const ErrorMessageContainer = styled.div`
     color: red;
 `;
 
+const StyledSeparator = styled(Separator)`
+    margin: 1rem 0;
+`;
+
+const StandardLink = styled(Link)`
+    color: ${COLORS.foreground.primary};
+    transition: color ease-in-out 0.3s;
+    text-underline-offset: 0.2rem;
+
+    &:hover {
+        color: ${COLORS.foreground.secondary};
+    }
+`;
+
 const STATUS = ["Log in", "Sign up"];
 
 const IdentityLayout = ({ children }) => {
-    const [linkPath, setLinkPath] = useState(ROUTING.login);
+    const [linkPath, setLinkPath] = useState(ROUTING.register);
     const [linkText, setLinkText] = useState(STATUS[1]);
     const [submitText, setSubmitText] = useState(STATUS[0]);
     const [errorMessage, setErrorMessage] = useState("test message");
@@ -95,10 +109,10 @@ const IdentityLayout = ({ children }) => {
                     >
                         {submitText}
                     </Button>
-                    <Separator text="or" width="80%" />
-                    <Link to={linkPath} onClick={handleLinkClick}>
+                    <StyledSeparator text="or" width="80%" />
+                    <StandardLink to={linkPath} onClick={handleLinkClick}>
                         {linkText}
-                    </Link>
+                    </StandardLink>
                 </StyledForm>
             </Container>
         </>

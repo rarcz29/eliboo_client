@@ -58,7 +58,6 @@ const RegisterView = () => {
                     colorPrimary={COLORS.foreground.primary}
                     colorSecondary={COLORS.foreground.secondary}
                     borderWidth="2px"
-                    //display={isNewLibrary ? "none" : "block"}
                 />
             )}
         </>

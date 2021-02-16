@@ -68,7 +68,7 @@ const IdentityLayout = ({ authenticate, register, children }) => {
     const [loading, setLoading] = useState(false);
 
     const resetErrorMessage = () => {
-        setErrorMessage("test message changed");
+        setErrorMessage("");
     };
 
     const handleButtonClick = () => {
@@ -89,9 +89,8 @@ const IdentityLayout = ({ authenticate, register, children }) => {
         }
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+    const validateForm = (form) => {
+        const formData = new FormData(form);
         const plainFormData = Object.fromEntries(formData.entries());
         let properData = true;
 
@@ -101,6 +100,26 @@ const IdentityLayout = ({ authenticate, register, children }) => {
                 setErrorMessage("fields cannot be empty");
             }
         });
+
+        const passwordFields = form.querySelectorAll("input[type=password]");
+        const password = passwordFields[0]?.value;
+
+        passwordFields.forEach((field) => {
+            if (field.value !== password) {
+                properData = false;
+                setErrorMessage("passwords are not the same");
+            }
+        });
+
+        return properData;
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+        const plainFormData = Object.fromEntries(formData.entries());
+        const properData = validateForm(form);
 
         if (properData) {
             const formDataJsonString = JSON.stringify(plainFormData);

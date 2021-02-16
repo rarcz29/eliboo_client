@@ -29,7 +29,7 @@ function App() {
     };
 
     return !authenticated ? (
-        <IdentityLayout authenticate={() => setAuthenticated(true)}>
+        <IdentityLayout authenticate={authenticate} register={register}>
             <Switch>
                 <Route exact path={["/", "/login"]} component={LoginView} />
                 <Route path="/register" component={RegisterView} />
@@ -38,12 +38,7 @@ function App() {
             </Switch>
         </IdentityLayout>
     ) : (
-        <MainLayout
-            logout={() => {
-                authService.logout();
-                setAuthenticated(false);
-            }}
-        >
+        <MainLayout logout={logout}>
             <Switch>
                 <Route exact path={["/", "/home"]} component={HomeView} />
                 <Route path="/list" component={MyListView} />

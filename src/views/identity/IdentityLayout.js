@@ -1,22 +1,11 @@
 import React, { useState } from "react";
-import styled, { createGlobalStyle, css } from "styled-components";
-import COLORS from "../../styles/colors";
+import styled, { css } from "styled-components";
 import Logo from "../../components/layout/Logo";
 import Button from "../../components/common/buttons/Button";
 import { Link } from "react-router-dom";
 import ROUTING from "../../constants/routing";
 import Separator from "../../components/common/separators/Separator";
-import authService from "../../services/authService";
-
-const GlobalStyle = createGlobalStyle`
-    body {
-        background-color: ${COLORS.background.darkerSecondary};
-    }
-
-    input {
-        margin-bottom: 1.6rem;
-    }
-`;
+import { COLORS, IdentityGlobalStyle } from "../../styles";
 
 const flexCenterStyle = css`
     display: flex;
@@ -62,7 +51,7 @@ const StandardLink = styled(Link)`
 
 const STATUS = ["Log in", "Sign up"];
 
-const IdentityLayout = ({ authenticate, children }) => {
+const IdentityLayout = ({ authenticate, register, children }) => {
     const [linkPath, setLinkPath] = useState(ROUTING.register);
     const [linkText, setLinkText] = useState(STATUS[1]);
     const [submitText, setSubmitText] = useState(STATUS[0]);
@@ -95,14 +84,12 @@ const IdentityLayout = ({ authenticate, children }) => {
         const formData = new FormData(event.currentTarget);
         const plainFormData = Object.fromEntries(formData.entries());
         const formDataJsonString = JSON.stringify(plainFormData);
-        authService.login(formDataJsonString).then(() => {
-            authenticate();
-        });
+        authenticate(formDataJsonString);
     };
 
     return (
         <>
-            <GlobalStyle />
+            <IdentityGlobalStyle />
             <Container>
                 <Logo width="90%" />
                 <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>

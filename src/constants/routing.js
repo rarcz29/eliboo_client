@@ -1,6 +1,6 @@
 const ROUTING = {
     login: "/login",
-    register: "register",
+    register: "/register",
     home: "/home",
     myList: "/list",
 };

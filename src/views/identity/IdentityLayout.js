@@ -53,9 +53,17 @@ const StandardLink = styled(Link)`
 const STATUS = ["Log in", "Sign up"];
 
 const IdentityLayout = ({ authenticate, register, children }) => {
-    const [linkPath, setLinkPath] = useState(ROUTING.register);
-    const [linkText, setLinkText] = useState(STATUS[1]);
-    const [submitText, setSubmitText] = useState(STATUS[0]);
+    const [linkPath, setLinkPath] = useState(
+        window.location.pathname === ROUTING.register
+            ? ROUTING.login
+            : ROUTING.register
+    );
+    const [linkText, setLinkText] = useState(
+        linkPath === ROUTING.register ? STATUS[1] : STATUS[0]
+    );
+    const [submitText, setSubmitText] = useState(
+        linkPath === ROUTING.register ? STATUS[0] : STATUS[1]
+    );
     const [errorMessage, setErrorMessage] = useState("test message");
     const [loading, setLoading] = useState(false);
 
@@ -70,14 +78,14 @@ const IdentityLayout = ({ authenticate, register, children }) => {
     const handleLinkClick = () => {
         resetErrorMessage();
 
-        if (linkPath === ROUTING.login) {
-            setLinkPath(ROUTING.register);
-            setLinkText(STATUS[1]);
-            setSubmitText(STATUS[0]);
-        } else {
+        if (linkPath === ROUTING.register) {
             setLinkPath(ROUTING.login);
             setLinkText(STATUS[0]);
             setSubmitText(STATUS[1]);
+        } else {
+            setLinkPath(ROUTING.register);
+            setLinkText(STATUS[1]);
+            setSubmitText(STATUS[0]);
         }
     };
 

@@ -3,7 +3,7 @@ import styled, { createGlobalStyle, css } from "styled-components";
 import COLORS from "../../styles/colors";
 import Logo from "../../components/layout/Logo";
 import Button from "../../components/common/buttons/Button";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ROUTING from "../../constants/routing";
 import Separator from "../../components/common/separators/Separator";
 import authService from "../../services/authService";
@@ -67,8 +67,6 @@ const IdentityLayout = ({ authenticate, children }) => {
     const [linkText, setLinkText] = useState(STATUS[1]);
     const [submitText, setSubmitText] = useState(STATUS[0]);
     const [errorMessage, setErrorMessage] = useState("test message");
-
-    const history = useHistory();
 
     const resetErrorMessage = () => {
         setErrorMessage("test message changed");

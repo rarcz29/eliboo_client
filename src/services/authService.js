@@ -14,12 +14,14 @@ const postData = async (formDataJsonString, url) => {
         body: formDataJsonString,
     })
         .then((res) => res.json())
-        .then((data) => (response = data));
+        .then((data) => (response = data))
+        .catch((error) => {
+            return error;
+        });
 
     return response;
 };
 
-// TODO: Save token in the local storage
 const login = async (formDataJsonString) => {
     const response = await postData(
         formDataJsonString,
@@ -28,13 +30,14 @@ const login = async (formDataJsonString) => {
 
     if (response !== null) {
         localStorage.setItem(LOCAL_STORAGE_DATA_NAME, response.token);
-        console.log(getUserData());
     }
+
+    return response;
 };
 
 // TODO: response
 const register = async (formDataJsonString) => {
-    await postData(formDataJsonString, API_ENDPOINTS.REGISTER_URL);
+    return await postData(formDataJsonString, API_ENDPOINTS.REGISTER_URL);
 };
 
 const logout = () => {

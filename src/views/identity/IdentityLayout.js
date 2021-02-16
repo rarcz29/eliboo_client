@@ -5,6 +5,7 @@ import Button from "../../components/common/buttons/Button";
 import { Link } from "react-router-dom";
 import ROUTING from "../../constants/routing";
 import Separator from "../../components/common/separators/Separator";
+import TextProgress from "../../components/common/progress/TextProgress";
 import { COLORS, IdentityGlobalStyle } from "../../styles";
 
 const flexCenterStyle = css`
@@ -56,6 +57,7 @@ const IdentityLayout = ({ authenticate, register, children }) => {
     const [linkText, setLinkText] = useState(STATUS[1]);
     const [submitText, setSubmitText] = useState(STATUS[0]);
     const [errorMessage, setErrorMessage] = useState("test message");
+    const [loading, setLoading] = useState(false);
 
     const resetErrorMessage = () => {
         setErrorMessage("test message changed");
@@ -79,12 +81,13 @@ const IdentityLayout = ({ authenticate, register, children }) => {
         }
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const plainFormData = Object.fromEntries(formData.entries());
         const formDataJsonString = JSON.stringify(plainFormData);
-        authenticate(formDataJsonString);
+        setLoading(true);
+        authenticate(formDataJsonString).then(() => setLoading(false));
     };
 
     return (
@@ -93,20 +96,28 @@ const IdentityLayout = ({ authenticate, register, children }) => {
             <Container>
                 <Logo width="90%" />
                 <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-                <StyledForm onSubmit={handleSubmit}>
+                <StyledForm onSubmit={handleSubmit} noValidate={loading}>
                     {children}
-                    <Button
-                        onClick={handleButtonClick}
-                        type="submit"
-                        width="80%"
-                        height="45px"
-                        borderRadius="1.5rem"
-                        color={COLORS.foreground.primary}
-                        backgroundColor={COLORS.buttons.blue}
-                        highlightColor={COLORS.buttons.blueHighlighted}
-                    >
-                        {submitText}
-                    </Button>
+                    {loading ? (
+                        <TextProgress
+                            height="45px"
+                            text="Wait"
+                            color={COLORS.foreground.primary}
+                        />
+                    ) : (
+                        <Button
+                            onClick={handleButtonClick}
+                            type="submit"
+                            width="80%"
+                            height="45px"
+                            borderRadius="1.5rem"
+                            color={COLORS.foreground.primary}
+                            backgroundColor={COLORS.buttons.blue}
+                            highlightColor={COLORS.buttons.blueHighlighted}
+                        >
+                            {submitText}
+                        </Button>
+                    )}
                 </StyledForm>
                 <StyledSeparator text="or" width="80%" />
                 <StandardLink to={linkPath} onClick={handleLinkClick}>

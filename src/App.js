@@ -12,9 +12,16 @@ function App() {
     const history = useHistory();
 
     const authenticate = async (formDataJsonString) => {
-        await authService.login(formDataJsonString);
-        setAuthenticated(true);
-        history.push("/");
+        const response = await authService.login(formDataJsonString);
+
+        if (response?.token) {
+            setAuthenticated(true);
+            history.push("/");
+        } else if (response?.message) {
+            console.log(response.message);
+        } else {
+            console.log("no connection");
+        }
     };
 
     const register = async (formDataJsonString) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
@@ -9,28 +9,10 @@ const StyledDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    letter-spacing: 0.03rem;
 `;
 
 const TextProgress = ({ className, width, height, fontSize, color, text }) => {
-    const [dot1Visibility, setDot1Visibility] = useState(false);
-    const [dot2Visibility, setDot2Visibility] = useState(false);
-    const [dot3Visibility, setDot3Visibility] = useState(false);
-
-    useEffect(() => {
-        const hooks = [
-            [dot1Visibility, setDot1Visibility],
-            [dot2Visibility, setDot2Visibility],
-            [dot3Visibility, setDot3Visibility],
-        ];
-
-        hooks.forEach((hook, index) => {
-            setTimeout(() => {
-                hook[1](!hook[0]);
-            }, 500);
-        });
-    }, []);
-
     return (
         <StyledDiv
             className={className}
@@ -40,9 +22,9 @@ const TextProgress = ({ className, width, height, fontSize, color, text }) => {
             color={color}
         >
             {text}
-            <span style={{ visibility: dot1Visibility }}>.</span>
-            <span style={{ visibility: dot2Visibility }}>.</span>
-            <span style={{ visibility: dot3Visibility }}>.</span>
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
         </StyledDiv>
     );
 };

@@ -48,17 +48,19 @@ const RegisterView = () => {
                 <label htmlFor="scales">Create new library</label>
             </CheckboxContainer>
 
-            <TextInput
-                name="libraryCode"
-                type="password"
-                width="80%"
-                height="40px"
-                placeholder="library code"
-                colorPrimary={COLORS.foreground.primary}
-                colorSecondary={COLORS.foreground.secondary}
-                borderWidth="2px"
-                display={isNewLibrary ? "none" : "block"}
-            />
+            {isNewLibrary || (
+                <TextInput
+                    name="libraryCode"
+                    type="password"
+                    width="80%"
+                    height="40px"
+                    placeholder="library code"
+                    colorPrimary={COLORS.foreground.primary}
+                    colorSecondary={COLORS.foreground.secondary}
+                    borderWidth="2px"
+                    //display={isNewLibrary ? "none" : "block"}
+                />
+            )}
         </>
     );
 };

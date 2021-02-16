@@ -93,9 +93,20 @@ const IdentityLayout = ({ authenticate, register, children }) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const plainFormData = Object.fromEntries(formData.entries());
-        const formDataJsonString = JSON.stringify(plainFormData);
-        setLoading(true);
-        authenticate(formDataJsonString).then(() => setLoading(false));
+        let properData = true;
+
+        Object.values(plainFormData).forEach((value) => {
+            if (value === "") {
+                properData = false;
+                setErrorMessage("fields cannot be empty");
+            }
+        });
+
+        if (properData) {
+            const formDataJsonString = JSON.stringify(plainFormData);
+            setLoading(true);
+            authenticate(formDataJsonString).then(() => setLoading(false));
+        }
     };
 
     return (

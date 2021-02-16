@@ -4,7 +4,7 @@ import COLORS from "../../styles/colors";
 
 const StyledHeader = styled.header`
     width: 100%;
-    height: 70px;
+    height: ${(props) => props.height};
     background-color: ${COLORS.background.lighterSecondary};
     display: flex;
     justify-content: space-between;
@@ -13,11 +13,21 @@ const StyledHeader = styled.header`
     font-size: 20px;
 `;
 
-const Header = ({ currentPage }) => {
+const UserElement = styled.p`
+    &:hover {
+        cursor: pointer;
+    }
+`;
+
+const Header = ({ currentPage, showUserMenu, setShowUserMenu, height }) => {
+    const handleUserElementClick = () => {
+        setShowUserMenu(!showUserMenu);
+    };
+
     return (
-        <StyledHeader>
+        <StyledHeader height={height}>
             <p>{currentPage}</p>
-            <p>User</p>
+            <UserElement onClick={handleUserElementClick}>User</UserElement>
         </StyledHeader>
     );
 };

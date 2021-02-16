@@ -64,7 +64,7 @@ const IdentityLayout = ({ authenticate, register, children }) => {
     const [submitText, setSubmitText] = useState(
         linkPath === ROUTING.register ? STATUS[0] : STATUS[1]
     );
-    const [errorMessage, setErrorMessage] = useState("test message");
+    const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
     const resetErrorMessage = () => {

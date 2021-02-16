@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Logo, Navbar, Header } from "../../components/layout";
+import { Logo, Navbar, Header, UserMenu } from "../../components/layout";
 import COLORS from "../../styles/colors";
 import styled from "styled-components";
 
@@ -26,16 +26,35 @@ const StyledMain = styled.main`
 
 const MainLayout = ({ logout, children }) => {
     const [page, setPage] = useState("Home");
+    const [showUserMenu, setShowUserMenu] = useState(false);
 
     return (
         <Container>
             <LeftSideContainer>
-                <button onClick={logout}>logout</button>
                 <Logo width="80%" />
                 <Navbar width="100%" height="100%" setPage={setPage} />
             </LeftSideContainer>
             <RightSideContainer>
-                <Header currentPage={page} />
+                <Header
+                    currentPage={page}
+                    showUserMenu={showUserMenu}
+                    setShowUserMenu={setShowUserMenu}
+                    height="70px"
+                />
+                <UserMenu
+                    top="70px"
+                    right={showUserMenu ? "0" : "-200px"}
+                    backgroundColor={COLORS.background.lighterSecondary}
+                    color={COLORS.foreground.secondary}
+                    highlightColor={COLORS.foreground.primary}
+                    width="200px"
+                    height="200px"
+                    showUserMenu={showUserMenu}
+                    setShowUserMenu={setShowUserMenu}
+                >
+                    <p>ACCOUNT</p>
+                    <p onClick={logout}>LOG OUT</p>
+                </UserMenu>
                 <StyledMain>{children}</StyledMain>
             </RightSideContainer>
         </Container>

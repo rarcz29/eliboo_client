@@ -1,7 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 
-const TableElement = ({ children }) => {
-    return <td>{children}</td>;
+const StyledTableElement = styled.td`
+    text-align: ${(props) => props.position};
+`;
+
+const TableElement = ({ position, children, className }) => {
+    return (
+        <StyledTableElement className={className} position={position}>
+            {children}
+        </StyledTableElement>
+    );
 };
 
 export default TableElement;

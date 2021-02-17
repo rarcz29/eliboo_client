@@ -4,11 +4,19 @@ import styled from "styled-components";
 const StyledTableHeader = styled.th`
     line-height: 3.5rem;
     text-align: left;
+    text-align: ${(props) => props.position};
+    width: ${(props) => props.width};
 `;
 
-const TableHeader = ({ children, className }) => {
+const TableHeader = ({ width, position, children, className }) => {
     return (
-        <StyledTableHeader className={className}>{children}</StyledTableHeader>
+        <StyledTableHeader
+            width={width}
+            className={className}
+            position={position}
+        >
+            {children}
+        </StyledTableHeader>
     );
 };
 

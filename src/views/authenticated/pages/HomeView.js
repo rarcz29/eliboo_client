@@ -10,8 +10,11 @@ import {
 import COLORS from "../../../styles/colors";
 import styled from "styled-components";
 
-const StyledForm = styled.form`
+const Grid = styled.div`
+    display: grid;
+    height: calc(100vh - 110px);
     width: 100%;
+    grid-template-rows: 210px auto 70px;
 `;
 
 const InputsContainer = styled.div`
@@ -27,14 +30,20 @@ const ButtonsContainer = styled.div`
     justify-content: space-around;
 `;
 
-const inputs = ["Title", "Genre", "Author", "Bookshelf"];
+const TableContainer = styled.div`
+    overflow-x: auto;
+    overflow-y: auto;
+    margin: 1rem 2rem;
+`;
+
+const inputs = ["Title", "Author", "Genre", "Bookshelf"];
 const submitButtons1 = ["Add", "Search"];
 const submitButtons2 = ["Add to my list", "Remove"];
 
 const HomeView = () => {
     return (
-        <>
-            <StyledForm>
+        <Grid>
+            <div>
                 <InputsContainer>
                     {inputs.map((input) => (
                         <TextInput
@@ -63,52 +72,70 @@ const HomeView = () => {
                         </Button>
                     ))}
                 </ButtonsContainer>
+            </div>
+            <TableContainer>
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableHeader>header1</TableHeader>
-                        <TableHeader>header2</TableHeader>
-                        <TableHeader>header3</TableHeader>
-                        <TableHeader>header4</TableHeader>
-                        <TableHeader>header5</TableHeader>
+                        <TableHeader width="5rem" position="center">
+                            <input type="checkbox"></input>
+                        </TableHeader>
+                        {inputs.map((input) => (
+                            <TableHeader>{input}</TableHeader>
+                        ))}
                     </TableRow>
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableElement>element1</TableElement>
+                        <TableElement position="center">
+                            <input type="checkbox"></input>
+                        </TableElement>
                         <TableElement>element2</TableElement>
                         <TableElement>element3</TableElement>
                         <TableElement>element4</TableElement>
                         <TableElement>element5</TableElement>
                     </TableRow>
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableElement>element1</TableElement>
+                        <TableElement position="center">
+                            <input type="checkbox"></input>
+                        </TableElement>
                         <TableElement>element2</TableElement>
                         <TableElement>element3</TableElement>
                         <TableElement>element4</TableElement>
                         <TableElement>element5</TableElement>
                     </TableRow>
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableElement>element1</TableElement>
+                        <TableElement position="center">
+                            <input type="checkbox"></input>
+                        </TableElement>
+                        <TableElement>element2</TableElement>
+                        <TableElement>element3</TableElement>
+                        <TableElement>element4</TableElement>
+                        <TableElement>element5</TableElement>
+                    </TableRow>
+                    <TableRow evenColor={COLORS.background.lighterSecondary}>
+                        <TableElement position="center">
+                            <input type="checkbox"></input>
+                        </TableElement>
                         <TableElement>element2</TableElement>
                         <TableElement>element3</TableElement>
                         <TableElement>element4</TableElement>
                         <TableElement>element5</TableElement>
                     </TableRow>
                 </Table>
-                <ButtonsContainer>
-                    {submitButtons2.map((button) => (
-                        <Button
-                            width="30%"
-                            height="45px"
-                            borderRadius="1.5rem"
-                            color={COLORS.foreground.primary}
-                            backgroundColor={COLORS.buttons.blue}
-                            highlightColor={COLORS.buttons.blueHighlighted}
-                        >
-                            {button}
-                        </Button>
-                    ))}
-                </ButtonsContainer>
-            </StyledForm>
-        </>
+            </TableContainer>
+            <ButtonsContainer>
+                {submitButtons2.map((button) => (
+                    <Button
+                        width="30%"
+                        height="45px"
+                        borderRadius="1.5rem"
+                        color={COLORS.foreground.primary}
+                        backgroundColor={COLORS.buttons.blue}
+                        highlightColor={COLORS.buttons.blueHighlighted}
+                    >
+                        {button}
+                    </Button>
+                ))}
+            </ButtonsContainer>
+        </Grid>
     );
 };
 

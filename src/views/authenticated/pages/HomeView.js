@@ -63,7 +63,7 @@ const HomeView = () => {
                         </Button>
                     ))}
                 </ButtonsContainer>
-                <Table width="100%" height="400px">
+                <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
                         <TableHeader>header1</TableHeader>
                         <TableHeader>header2</TableHeader>

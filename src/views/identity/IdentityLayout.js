@@ -5,8 +5,8 @@ import Button from "../../components/common/buttons/Button";
 import { Link } from "react-router-dom";
 import ROUTING from "../../constants/routing";
 import Separator from "../../components/common/separators/Separator";
-import TextProgress from "../../components/common/progress/TextProgress";
 import { COLORS, IdentityGlobalStyle } from "../../styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const flexCenterStyle = css`
     display: flex;
@@ -137,11 +137,7 @@ const IdentityLayout = ({ authenticate, register, children }) => {
                 <StyledForm onSubmit={handleSubmit} noValidate={loading}>
                     {children}
                     {loading ? (
-                        <TextProgress
-                            height="45px"
-                            text="Wait"
-                            color={COLORS.foreground.primary}
-                        />
+                        <CircularProgress color="secondary" size="45px" />
                     ) : (
                         <Button
                             onClick={handleButtonClick}

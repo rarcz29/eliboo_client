@@ -5,14 +5,20 @@ const StyledButton = styled.button`
     width: ${(props) => props.width};
     height: ${(props) => props.height};
     border-radius: ${(props) => props.borderRadius};
-    background-color: ${(props) => props.backgroundColor};
     color: ${(props) => props.color};
     border-width: 0px;
     font-size: ${(props) => props.fontSize || "1rem"};
+    background: linear-gradient(
+        180deg,
+        ${(props) => props.backgroundColor} 0%,
+        ${(props) => props.highlightColor} 100%
+    );
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
     transition: all ease-in-out 0.3s;
 
     &:hover {
-        background-color: ${(props) => props.highlightColor};
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+        //background-color: ${(props) => props.highlightColor};
         cursor: pointer;
     }
 `;

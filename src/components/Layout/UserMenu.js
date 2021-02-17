@@ -17,6 +17,7 @@ const Menu = styled.div`
     font-weight: bold;
     transition: right ease-in-out 0.3s;
     border-radius: 0 0 0 0.2rem;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
 
     p {
         transition: color ease-in-out 0.5s;

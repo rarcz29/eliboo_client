@@ -27,12 +27,6 @@ const ButtonsContainer = styled.div`
     justify-content: space-around;
 `;
 
-const TmpDiv = styled.div`
-    margin-top: 0.5rem;
-    width: 100%;
-    height: 400px;
-`;
-
 const inputs = ["Title", "Genre", "Author", "Bookshelf"];
 const submitButtons1 = ["Add", "Search"];
 const submitButtons2 = ["Add to my list", "Remove"];
@@ -60,7 +54,7 @@ const HomeView = () => {
                             type="submit"
                             width="30%"
                             height="45px"
-                            borderRadius="1.5rem"
+                            borderRadius="1rem"
                             color={COLORS.foreground.primary}
                             backgroundColor={COLORS.buttons.blue}
                             highlightColor={COLORS.buttons.blueHighlighted}

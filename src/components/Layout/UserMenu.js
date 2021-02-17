@@ -16,10 +16,10 @@ const Menu = styled.div`
     letter-spacing: 0.05rem;
     font-weight: bold;
     transition: right ease-in-out 0.3s;
-    border-radius: 0 0 0 1rem;
+    border-radius: 0 0 0 0.2rem;
 
     p {
-        transition: color ease-in-out 0.3s;
+        transition: color ease-in-out 0.5s;
     }
 
     p:hover {
@@ -38,8 +38,6 @@ const UserMenu = ({
     color,
     highlightColor,
     children,
-    showUserMenu,
-    setShowUserMenu,
 }) => {
     return (
         <Menu
@@ -51,7 +49,6 @@ const UserMenu = ({
             backgroundColor={backgroundColor}
             color={color}
             highlightColor={highlightColor}
-            onMouseLeave={() => setShowUserMenu(!showUserMenu)}
         >
             {children}
         </Menu>

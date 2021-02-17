@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import COLORS from "../../styles/colors";
+import Avatar from "@material-ui/core/Avatar";
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -13,21 +14,28 @@ const StyledHeader = styled.header`
     font-size: 20px;
 `;
 
-const UserElement = styled.p`
-    &:hover {
-        cursor: pointer;
+const StyledAvatar = styled(Avatar)`
+    && {
+        background-color: ${COLORS.buttons.blue};
+        color: ${COLORS.foreground.primary};
+        transition: background-color ease-in-out 0.3s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: ${COLORS.buttons.blueHighlighted} !important;
+        }
     }
 `;
 
-const Header = ({ currentPage, showUserMenu, setShowUserMenu, height }) => {
+const Header = ({ currentPage, setShowUserMenu, height }) => {
     const handleUserElementClick = () => {
-        setShowUserMenu(!showUserMenu);
+        setShowUserMenu((prev) => !prev);
     };
 
     return (
         <StyledHeader height={height}>
             <p>{currentPage}</p>
-            <UserElement onClick={handleUserElementClick}>User</UserElement>
+            <StyledAvatar onClick={handleUserElementClick}>R</StyledAvatar>
         </StyledHeader>
     );
 };

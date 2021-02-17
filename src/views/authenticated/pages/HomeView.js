@@ -14,7 +14,7 @@ const Grid = styled.div`
     display: grid;
     height: calc(100vh - 110px);
     width: 100%;
-    grid-template-rows: 210px auto 70px;
+    grid-template-rows: 210px auto 60px;
 `;
 
 const InputsContainer = styled.div`

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../../components/common/buttons/Button';
+import DefaultButton from '../../../components/common/buttons/DefaultButton';
 import TextInput from '../../../components/common/inputs/TextInput';
 import {
     Table,
@@ -59,17 +59,9 @@ const HomeView = () => {
                 </InputsContainer>
                 <ButtonsContainer>
                     {submitButtons1.map((button) => (
-                        <Button
-                            type="submit"
-                            width="30%"
-                            height="45px"
-                            borderRadius="1rem"
-                            color={COLORS.foreground.primary}
-                            backgroundColor={COLORS.buttons.blue}
-                            highlightColor={COLORS.buttons.blueHighlighted}
-                        >
+                        <DefaultButton type="submit" width="30%">
                             {button}
-                        </Button>
+                        </DefaultButton>
                     ))}
                 </ButtonsContainer>
             </div>
@@ -123,16 +115,9 @@ const HomeView = () => {
             </TableContainer>
             <ButtonsContainer>
                 {submitButtons2.map((button) => (
-                    <Button
-                        width="30%"
-                        height="45px"
-                        borderRadius="1.5rem"
-                        color={COLORS.foreground.primary}
-                        backgroundColor={COLORS.buttons.blue}
-                        highlightColor={COLORS.buttons.blueHighlighted}
-                    >
+                    <DefaultButton width="30%" height="45px">
                         {button}
-                    </Button>
+                    </DefaultButton>
                 ))}
             </ButtonsContainer>
         </Grid>

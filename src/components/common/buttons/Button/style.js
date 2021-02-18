@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
     width: ${(props) => props.width};
     height: ${(props) => props.height};
     border-radius: ${(props) => props.borderRadius};
@@ -22,34 +21,3 @@ const StyledButton = styled.button`
         cursor: pointer;
     }
 `;
-
-const Button = ({
-    type,
-    width,
-    height,
-    borderRadius,
-    backgroundColor,
-    highlightColor,
-    color,
-    fontSize,
-    onClick,
-    children,
-}) => {
-    return (
-        <StyledButton
-            type={type}
-            width={width}
-            height={height}
-            borderRadius={borderRadius}
-            backgroundColor={backgroundColor}
-            highlightColor={highlightColor}
-            color={color}
-            fontSize={fontSize}
-            onClick={onClick}
-        >
-            {children}
-        </StyledButton>
-    );
-};
-
-export default Button;

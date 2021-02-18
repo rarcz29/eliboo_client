@@ -2,7 +2,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import Button from '../../components/common/buttons/Button';
+import Button from '../../components/common/buttons/Button/index';
 import Separator from '../../components/common/separators/Separator';
 import Logo from '../../components/layout/Logo';
 import ROUTING from '../../constants/routing';

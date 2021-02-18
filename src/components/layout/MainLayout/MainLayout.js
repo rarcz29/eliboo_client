@@ -1,30 +1,13 @@
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Header, Logo, Navbar, UserMenu } from '../../components/layout';
-import COLORS from '../../styles/colors';
-
-const Container = styled.div`
-    height: 100vh;
-    display: flex;
-`;
-
-const LeftSideContainer = styled(Container)`
-    width: 370px;
-    background-color: ${COLORS.background.darkerSecondary};
-    flex-direction: column;
-    align-items: center;
-`;
-
-const RightSideContainer = styled(Container)`
-    width: calc(100% - 370px);
-    flex-direction: column;
-`;
-
-const StyledMain = styled.main`
-    padding: 20px;
-    overflow-x: auto;
-`;
+import COLORS from 'styles/colors';
+import { Header, Logo, Navbar, UserMenu } from '../components';
+import {
+    Container,
+    LeftSideContainer,
+    RightSideContainer,
+    StyledMain,
+} from './style';
 
 const MainLayout = ({ logout, children }) => {
     const [page, setPage] = useState('Home');

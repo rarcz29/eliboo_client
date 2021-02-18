@@ -1,5 +1,5 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from 'components/common/buttons/Button/index';
+import DefaultButton from 'components/common/buttons/DefaultButton';
 import ROUTING from 'constants/routing';
 import React, { useState } from 'react';
 import { COLORS, IdentityGlobalStyle } from 'styles';
@@ -101,7 +101,7 @@ const IdentityLayout = ({ authenticate, register, children }) => {
                     {loading ? (
                         <CircularProgress color="secondary" size="45px" />
                     ) : (
-                        <Button
+                        <DefaultButton
                             onClick={handleButtonClick}
                             type="submit"
                             width="80%"
@@ -112,7 +112,7 @@ const IdentityLayout = ({ authenticate, register, children }) => {
                             highlightColor={COLORS.buttons.blueHighlighted}
                         >
                             {submitText}
-                        </Button>
+                        </DefaultButton>
                     )}
                 </StyledForm>
                 <StyledSeparator text="or" width="80%" />

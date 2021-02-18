@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
-import { IdentityLayout, LoginView, RegisterView } from "./views/identity";
-import { MainLayout, HomeView, MyListView } from "./views/authenticated";
-import authService from "./services/authService";
+import React, { useState } from 'react';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import authService from './services/authService';
+import { HomeView, MainLayout, MyListView } from './views/authenticated';
+import { IdentityLayout, LoginView, RegisterView } from './views/identity';
 
 function App() {
     const [authenticated, setAuthenticated] = useState(
@@ -16,29 +16,29 @@ function App() {
 
         if (response?.token) {
             setAuthenticated(true);
-            history.push("/");
+            history.push('/');
         } else if (response?.message) {
             console.log(response.message);
         } else {
-            console.log("no connection");
+            console.log('no connection');
         }
     };
 
     const register = async (formDataJsonString) => {
         await authService.register(formDataJsonString);
-        history.push("/");
+        history.push('/');
     };
 
     const logout = () => {
         authService.logout();
         setAuthenticated(false);
-        history.push("/");
+        history.push('/');
     };
 
     return authenticated ? (
         <IdentityLayout authenticate={authenticate} register={register}>
             <Switch>
-                <Route exact path={["/", "/login"]} component={LoginView} />
+                <Route exact path={['/', '/login']} component={LoginView} />
                 <Route path="/register" component={RegisterView} />
                 <Redirect from="/home" to="/login" />
                 <Redirect from="/list" to="/login" />
@@ -47,7 +47,7 @@ function App() {
     ) : (
         <MainLayout logout={logout}>
             <Switch>
-                <Route exact path={["/", "/home"]} component={HomeView} />
+                <Route exact path={['/', '/home']} component={HomeView} />
                 <Route path="/list" component={MyListView} />
             </Switch>
         </MainLayout>

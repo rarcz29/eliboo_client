@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 // TODO: disable highlighting input when disabled
 const StyledInput = styled.input`
@@ -8,12 +8,12 @@ const StyledInput = styled.input`
     padding: 15px;
     outline: none;
     resize: none;
-    background-color: ${(props) => props.backgroundColor || "transparent"};
-    color: ${(props) => props.colorPrimary || "black"};
+    background-color: ${(props) => props.backgroundColor || 'transparent'};
+    color: ${(props) => props.colorPrimary || 'black'};
     border: none;
-    border-bottom: ${(props) => props.borderWidth || "1px"} solid
-        ${(props) => props.colorSecondary || "black"};
-    font-size: ${(props) => props.fontSize || "1rem"};
+    border-bottom: ${(props) => props.borderWidth || '1px'} solid
+        ${(props) => props.colorSecondary || 'black'};
+    font-size: ${(props) => props.fontSize || '1rem'};
     display: ${(props) => props.display};
     transition: border-color ease-in-out 0.3s;
 

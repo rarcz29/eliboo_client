@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledButton = styled.button`
     width: ${(props) => props.width};
@@ -7,7 +7,7 @@ const StyledButton = styled.button`
     border-radius: ${(props) => props.borderRadius};
     color: ${(props) => props.color};
     border-width: 0px;
-    font-size: ${(props) => props.fontSize || "1rem"};
+    font-size: ${(props) => props.fontSize || '1rem'};
     background: linear-gradient(
         180deg,
         ${(props) => props.backgroundColor} 0%,

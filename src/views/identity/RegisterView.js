@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import TextInput from "../../components/common/inputs/TextInput";
-import COLORS from "../../styles/colors";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import TextInput from '../../components/common/inputs/TextInput';
+import COLORS from '../../styles/colors';
 
 const CheckboxContainer = styled.div`
     width: 80%;
 `;
 
 const inputs = [
-    ["username", "text"],
-    ["email", "email"],
-    ["password", "password"],
-    ["confirm password", "password"],
+    ['username', 'text'],
+    ['email', 'email'],
+    ['password', 'password'],
+    ['confirm password', 'password'],
 ];
 
 const RegisterView = () => {
@@ -25,7 +25,7 @@ const RegisterView = () => {
         <>
             {inputs.map((input) => (
                 <TextInput
-                    name={input[0].split(" ")[0]}
+                    name={input[0].split(' ')[0]}
                     type={input[1]}
                     width="80%"
                     height="40px"

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Menu = styled.div`
     position: fixed;
@@ -42,7 +42,7 @@ const UserMenu = ({
 }) => {
     return (
         <Menu
-            className={className + " click-outside-element"}
+            className={className + ' click-outside-element'}
             top={top}
             right={right}
             width={width}

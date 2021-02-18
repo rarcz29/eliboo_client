@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import Logo from "../../components/layout/Logo";
-import Button from "../../components/common/buttons/Button";
-import { Link } from "react-router-dom";
-import ROUTING from "../../constants/routing";
-import Separator from "../../components/common/separators/Separator";
-import { COLORS, IdentityGlobalStyle } from "../../styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import Button from '../../components/common/buttons/Button';
+import Separator from '../../components/common/separators/Separator';
+import Logo from '../../components/layout/Logo';
+import ROUTING from '../../constants/routing';
+import { COLORS, IdentityGlobalStyle } from '../../styles';
 
 const flexCenterStyle = css`
     display: flex;
@@ -50,7 +50,7 @@ const StandardLink = styled(Link)`
     }
 `;
 
-const STATUS = ["Log in", "Sign up"];
+const STATUS = ['Log in', 'Sign up'];
 
 const IdentityLayout = ({ authenticate, register, children }) => {
     const [linkPath, setLinkPath] = useState(
@@ -64,11 +64,11 @@ const IdentityLayout = ({ authenticate, register, children }) => {
     const [submitText, setSubmitText] = useState(
         linkPath === ROUTING.register ? STATUS[0] : STATUS[1]
     );
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
     const resetErrorMessage = () => {
-        setErrorMessage("");
+        setErrorMessage('');
     };
 
     const handleButtonClick = () => {
@@ -95,19 +95,19 @@ const IdentityLayout = ({ authenticate, register, children }) => {
         let properData = true;
 
         Object.values(plainFormData).forEach((value) => {
-            if (value === "") {
+            if (value === '') {
                 properData = false;
-                setErrorMessage("fields cannot be empty");
+                setErrorMessage('fields cannot be empty');
             }
         });
 
-        const passwordFields = form.querySelectorAll("input[type=password]");
+        const passwordFields = form.querySelectorAll('input[type=password]');
         const password = passwordFields[0]?.value;
 
         passwordFields.forEach((field) => {
             if (field.value !== password) {
                 properData = false;
-                setErrorMessage("passwords are not the same");
+                setErrorMessage('passwords are not the same');
             }
         });
 

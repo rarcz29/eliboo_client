@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import ROUTING from "../../constants/routing";
-import COLORS from "../../styles/colors";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import ROUTING from '../../constants/routing';
+import COLORS from '../../styles/colors';
 
 const StyledLink = styled(Link)`
     color: ${COLORS.foreground.secondary};
@@ -36,16 +36,16 @@ const Navbar = ({ height, width, setPage }) => {
     return (
         // TODO: Update paths
         <StyledAside style={{ width: width, height: height }}>
-            <StyledLink to={ROUTING.home} onClick={setPage("Home")}>
+            <StyledLink to={ROUTING.home} onClick={setPage('Home')}>
                 Home
             </StyledLink>
-            <StyledLink to={ROUTING.myList} onClick={setPage("My List")}>
+            <StyledLink to={ROUTING.myList} onClick={setPage('My List')}>
                 My list
             </StyledLink>
-            <StyledLink to={ROUTING.home} onClick={setPage("Reading Now")}>
+            <StyledLink to={ROUTING.home} onClick={setPage('Reading Now')}>
                 Reading now
             </StyledLink>
-            <StyledLink to={ROUTING.home} onClick={setPage("Bookshelves")}>
+            <StyledLink to={ROUTING.home} onClick={setPage('Bookshelves')}>
                 Bookshelves
             </StyledLink>
         </StyledAside>

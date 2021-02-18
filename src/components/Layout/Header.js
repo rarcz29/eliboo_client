@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import COLORS from "../../styles/colors";
-import Avatar from "@material-ui/core/Avatar";
+import Avatar from '@material-ui/core/Avatar';
+import React from 'react';
+import styled from 'styled-components';
+import COLORS from '../../styles/colors';
 
 const StyledHeader = styled.header`
     width: 100%;

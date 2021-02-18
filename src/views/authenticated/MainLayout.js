@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Logo, Navbar, Header, UserMenu } from "../../components/layout";
-import COLORS from "../../styles/colors";
-import styled from "styled-components";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Header, Logo, Navbar, UserMenu } from '../../components/layout';
+import COLORS from '../../styles/colors';
 
 const Container = styled.div`
     height: 100vh;
@@ -23,10 +23,11 @@ const RightSideContainer = styled(Container)`
 
 const StyledMain = styled.main`
     padding: 20px;
+    overflow-x: auto;
 `;
 
 const MainLayout = ({ logout, children }) => {
-    const [page, setPage] = useState("Home");
+    const [page, setPage] = useState('Home');
     const [showUserMenu, setShowUserMenu] = useState(false);
 
     const handleClickAway = () => {
@@ -50,7 +51,7 @@ const MainLayout = ({ logout, children }) => {
                     <div>
                         <UserMenu
                             top="70px"
-                            right={showUserMenu ? "0" : "-200px"}
+                            right={showUserMenu ? '0' : '-200px'}
                             backgroundColor={COLORS.background.lighterSecondary}
                             color={COLORS.foreground.secondary}
                             highlightColor={COLORS.foreground.primary}

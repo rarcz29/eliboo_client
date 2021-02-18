@@ -1,8 +1,8 @@
-import React from "react";
-import TextInput from "../../components/common/inputs/TextInput";
-import COLORS from "../../styles/colors";
+import React from 'react';
+import TextInput from '../../components/common/inputs/TextInput';
+import COLORS from '../../styles/colors';
 
-const inputs = ["email", "password"];
+const inputs = ['email', 'password'];
 
 const LoginView = () => {
     return (

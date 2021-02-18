@@ -1,14 +1,14 @@
-import React from "react";
-import TextInput from "../../../components/common/inputs/TextInput";
-import Button from "../../../components/common/buttons/Button";
+import React from 'react';
+import styled from 'styled-components';
+import Button from '../../../components/common/buttons/Button';
+import TextInput from '../../../components/common/inputs/TextInput';
 import {
     Table,
     TableElement,
-    TableRow,
     TableHeader,
-} from "../../../components/common/tables";
-import COLORS from "../../../styles/colors";
-import styled from "styled-components";
+    TableRow,
+} from '../../../components/common/tables';
+import COLORS from '../../../styles/colors';
 
 const Grid = styled.div`
     display: grid;
@@ -36,9 +36,9 @@ const TableContainer = styled.div`
     margin: 1rem 2rem;
 `;
 
-const inputs = ["Title", "Author", "Genre", "Bookshelf"];
-const submitButtons1 = ["Add", "Search"];
-const submitButtons2 = ["Add to my list", "Remove"];
+const inputs = ['Title', 'Author', 'Genre', 'Bookshelf'];
+const submitButtons1 = ['Add', 'Search'];
+const submitButtons2 = ['Add to my list', 'Remove'];
 
 const HomeView = () => {
     return (

@@ -1,6 +1,6 @@
-import React from "react";
-import { ReactComponent as ReactLogo } from "../../assets/logo.svg";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { ReactComponent as ReactLogo } from '../../assets/logo.svg';
 
 const StyledLogo = styled(ReactLogo)`
     width: 100%;

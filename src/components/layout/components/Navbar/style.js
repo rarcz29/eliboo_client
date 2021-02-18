@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import COLORS from '../../styles/colors';
+import COLORS from 'styles/colors';
 
 export const StyledLink = styled(Link)`
     color: ${COLORS.foreground.secondary};

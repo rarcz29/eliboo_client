@@ -1,8 +1,8 @@
+import { IdentityLayout, MainLayout } from 'components/layout';
 import React, { useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { HomeView, LoginView, MyListView, RegisterView } from 'views';
 import authService from './services/authService';
-import { HomeView, MainLayout, MyListView } from './views/authenticated';
-import { IdentityLayout, LoginView, RegisterView } from './views/identity';
 
 function App() {
     const [authenticated, setAuthenticated] = useState(

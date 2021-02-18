@@ -1,6 +1,6 @@
+import TextInput from 'components/common/inputs/TextInput';
 import React, { useState } from 'react';
-import TextInput from '../../components/common/inputs/TextInput';
-import COLORS from '../../styles/colors';
+import COLORS from 'styles/colors';
 import { CheckboxContainer } from './style';
 
 const inputs = [

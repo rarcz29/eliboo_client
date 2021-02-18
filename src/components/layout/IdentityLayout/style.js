@@ -1,7 +1,7 @@
+import Separator from 'components/common/separators/Separator';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import COLORS from 'styles/colors';
-import Separator from '../../components/common/separators/Separator';
 
 const flexCenterStyle = css`
     display: flex;

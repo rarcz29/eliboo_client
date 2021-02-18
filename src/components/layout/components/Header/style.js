@@ -1,6 +1,6 @@
 import Avatar from '@material-ui/core/Avatar';
 import styled from 'styled-components';
-import COLORS from '../../../styles/colors';
+import COLORS from 'styles/colors';
 
 export const StyledHeader = styled.header`
     width: 100%;

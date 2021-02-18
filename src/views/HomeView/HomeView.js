@@ -1,13 +1,13 @@
-import React from 'react';
-import DefaultButton from '../../../components/common/buttons/DefaultButton';
-import TextInput from '../../../components/common/inputs/TextInput';
+import DefaultButton from 'components/common/buttons/DefaultButton';
+import TextInput from 'components/common/inputs/TextInput';
 import {
     Table,
     TableElement,
     TableHeader,
     TableRow,
-} from '../../../components/common/tables';
-import COLORS from '../../../styles/colors';
+} from 'components/common/tables';
+import React from 'react';
+import COLORS from 'styles/colors';
 import {
     ButtonsContainer,
     Grid,

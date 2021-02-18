@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import DefaultButton from '../../../components/common/buttons/DefaultButton';
 import TextInput from '../../../components/common/inputs/TextInput';
 import {
@@ -9,32 +8,12 @@ import {
     TableRow,
 } from '../../../components/common/tables';
 import COLORS from '../../../styles/colors';
-
-const Grid = styled.div`
-    display: grid;
-    height: calc(100vh - 110px);
-    width: 100%;
-    grid-template-rows: 210px auto 60px;
-`;
-
-const InputsContainer = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    height: 130px;
-`;
-
-const ButtonsContainer = styled.div`
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: space-around;
-`;
-
-const TableContainer = styled.div`
-    overflow-x: auto;
-    overflow-y: auto;
-    margin: 1rem 2rem;
-`;
+import {
+    ButtonsContainer,
+    Grid,
+    InputsContainer,
+    TableContainer,
+} from './style';
 
 const inputs = ['Title', 'Author', 'Genre', 'Bookshelf'];
 const submitButtons1 = ['Add', 'Search'];

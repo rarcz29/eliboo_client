@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import TextInput from '../../components/common/inputs/TextInput';
 import COLORS from '../../styles/colors';
-
-const CheckboxContainer = styled.div`
-    width: 80%;
-`;
+import { CheckboxContainer } from './style';
 
 const inputs = [
     ['username', 'text'],

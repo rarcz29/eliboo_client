@@ -1,9 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const StyledTableElement = styled.td`
-    text-align: ${(props) => props.position};
-`;
+import { StyledTableElement } from './style';
 
 const TableElement = ({ position, children, className }) => {
     return (

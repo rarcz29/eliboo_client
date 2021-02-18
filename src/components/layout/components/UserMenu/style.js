@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const Menu = styled.div`
+export const Menu = styled.div`
     position: fixed;
     top: ${(props) => props.top};
     right: ${(props) => props.right};
@@ -28,32 +27,3 @@ const Menu = styled.div`
         color: ${(props) => props.highlightColor};
     }
 `;
-
-const UserMenu = ({
-    className,
-    top,
-    right,
-    width,
-    height,
-    backgroundColor,
-    color,
-    highlightColor,
-    children,
-}) => {
-    return (
-        <Menu
-            className={className + ' click-outside-element'}
-            top={top}
-            right={right}
-            width={width}
-            height={height}
-            backgroundColor={backgroundColor}
-            color={color}
-            highlightColor={highlightColor}
-        >
-            {children}
-        </Menu>
-    );
-};
-
-export default UserMenu;

@@ -1,8 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 
 // TODO: disable highlighting input when disabled
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
     width: ${(props) => props.width};
     height: ${(props) => props.height};
     padding: 15px;
@@ -38,44 +37,3 @@ const StyledInput = styled.input`
         color: ${(props) => props.colorSecondary};
     }
 `;
-
-const TextInput = ({
-    className,
-    width,
-    height,
-    name,
-    type,
-    autocomplete,
-    placeholder,
-    backgroundColor,
-    colorPrimary,
-    colorSecondary,
-    borderWidth,
-    fontSize,
-    disabled,
-    display,
-    children,
-}) => {
-    return (
-        <StyledInput
-            className={className}
-            height={height}
-            width={width}
-            name={name}
-            type={type}
-            autoComplete={autocomplete}
-            placeholder={placeholder}
-            backgroundColor={backgroundColor}
-            colorPrimary={colorPrimary}
-            colorSecondary={colorSecondary}
-            borderWidth={borderWidth}
-            fontSize={fontSize}
-            disabled={disabled}
-            display={display}
-        >
-            {children}
-        </StyledInput>
-    );
-};
-
-export default TextInput;

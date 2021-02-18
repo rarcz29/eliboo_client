@@ -1,5 +1,5 @@
-const BASE_URL = "https://localhost:49159/api";
-const LOGIN_URL = BASE_URL + "/auth/authenticate";
-const REGISTER_URL = BASE_URL + "/auth/register";
+const BASE_URL = 'https://localhost:49159/api';
+const LOGIN_URL = BASE_URL + '/auth/authenticate';
+const REGISTER_URL = BASE_URL + '/auth/register';
 
 export default { LOGIN_URL, REGISTER_URL };

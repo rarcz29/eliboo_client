@@ -1,0 +1,23 @@
+import styled from 'styled-components';
+
+export const StyledButton = styled.button`
+    width: ${(props) => props.width};
+    height: ${(props) => props.height};
+    border-radius: ${(props) => props.borderRadius};
+    color: ${(props) => props.color};
+    border-width: 0px;
+    font-size: ${(props) => props.fontSize || '1rem'};
+    background: linear-gradient(
+        180deg,
+        ${(props) => props.backgroundColor} 0%,
+        ${(props) => props.highlightColor} 100%
+    );
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    transition: all ease-in-out 0.3s;
+
+    &:hover {
+        box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
+        transform: scale(1.02);
+        cursor: pointer;
+    }
+`;

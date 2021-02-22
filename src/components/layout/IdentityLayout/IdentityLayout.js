@@ -86,7 +86,12 @@ const IdentityLayout = ({ authenticate, register, children }) => {
         if (properData) {
             const formDataJsonString = JSON.stringify(plainFormData);
             setLoading(true);
-            authenticate(formDataJsonString).then(() => setLoading(false));
+
+            if (submitText === STATUS[0]) {
+                authenticate(formDataJsonString).then(() => setLoading(false));
+            } else if (submitText === STATUS[1]) {
+                register(formDataJsonString).then(() => setLoading(false));
+            }
         }
     };
 

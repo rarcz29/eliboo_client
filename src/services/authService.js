@@ -1,16 +1,16 @@
-import API_ENDPOINTS from "../constants/apiEndpoints";
+import API_ENDPOINTS from '../constants/apiEndpoints';
 
-const LOCAL_STORAGE_DATA_NAME = "user_token";
+const LOCAL_STORAGE_DATA_NAME = 'user_token';
 
 const postData = async (formDataJsonString, url) => {
     let response = null;
 
     await fetch(url, {
         headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
         },
-        method: "POST",
+        method: 'POST',
         body: formDataJsonString,
     })
         .then((res) => res.json())
@@ -35,7 +35,6 @@ const login = async (formDataJsonString) => {
     return response;
 };
 
-// TODO: response
 const register = async (formDataJsonString) => {
     return await postData(formDataJsonString, API_ENDPOINTS.REGISTER_URL);
 };
@@ -48,14 +47,23 @@ const isAuthenticated = () => {
     return getUserData() !== null;
 };
 
+const getToken = () => localStorage.getItem(LOCAL_STORAGE_DATA_NAME);
+
 const getUserData = () => {
-    const token = localStorage.getItem(LOCAL_STORAGE_DATA_NAME);
+    const token = getToken();
 
     try {
-        return JSON.parse(atob(token.split(".")[1]));
+        return JSON.parse(atob(token.split('.')[1]));
     } catch (e) {
         return null;
     }
 };
 
-export default { login, register, logout, isAuthenticated, getUserData };
+export default {
+    login,
+    register,
+    logout,
+    isAuthenticated,
+    getToken,
+    getUserData,
+};

@@ -35,7 +35,7 @@ function App() {
         history.push('/');
     };
 
-    return authenticated ? (
+    return !authenticated ? (
         <IdentityLayout authenticate={authenticate} register={register}>
             <Switch>
                 <Route exact path={['/', '/login']} component={LoginView} />

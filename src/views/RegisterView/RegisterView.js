@@ -47,7 +47,7 @@ const RegisterView = () => {
             {isNewLibrary || (
                 <TextInput
                     name="libraryCode"
-                    type="password"
+                    type="text"
                     width="80%"
                     height="40px"
                     placeholder="library code"

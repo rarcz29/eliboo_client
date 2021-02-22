@@ -1,3 +1,4 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import DefaultButton from 'components/common/buttons/DefaultButton';
 import TextInput from 'components/common/inputs/TextInput';
 import {
@@ -6,7 +7,9 @@ import {
     TableHeader,
     TableRow,
 } from 'components/common/tables';
-import React from 'react';
+import API_ENDPOINTS from 'constants/apiEndpoints';
+import React, { useEffect, useState } from 'react';
+import authService from 'services/authService';
 import COLORS from 'styles/colors';
 import {
     ButtonsContainer,
@@ -20,6 +23,25 @@ const submitButtons1 = ['Add', 'Search'];
 const submitButtons2 = ['Add to my list', 'Remove'];
 
 const HomeView = () => {
+    const [loading, setLoading] = useState(true);
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+        fetch(API_ENDPOINTS.GET_ALL_BOOKS, {
+            headers: {
+                Authorization: 'Bearer ' + authService.getToken(),
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setBooks(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
     return (
         <Grid>
             <div>
@@ -54,42 +76,23 @@ const HomeView = () => {
                             <TableHeader>{input}</TableHeader>
                         ))}
                     </TableRow>
-                    <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableElement position="center">
-                            <input type="checkbox"></input>
-                        </TableElement>
-                        <TableElement>element2</TableElement>
-                        <TableElement>element3</TableElement>
-                        <TableElement>element4</TableElement>
-                        <TableElement>element5</TableElement>
-                    </TableRow>
-                    <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableElement position="center">
-                            <input type="checkbox"></input>
-                        </TableElement>
-                        <TableElement>element2</TableElement>
-                        <TableElement>element3</TableElement>
-                        <TableElement>element4</TableElement>
-                        <TableElement>element5</TableElement>
-                    </TableRow>
-                    <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableElement position="center">
-                            <input type="checkbox"></input>
-                        </TableElement>
-                        <TableElement>element2</TableElement>
-                        <TableElement>element3</TableElement>
-                        <TableElement>element4</TableElement>
-                        <TableElement>element5</TableElement>
-                    </TableRow>
-                    <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableElement position="center">
-                            <input type="checkbox"></input>
-                        </TableElement>
-                        <TableElement>element2</TableElement>
-                        <TableElement>element3</TableElement>
-                        <TableElement>element4</TableElement>
-                        <TableElement>element5</TableElement>
-                    </TableRow>
+                    {loading ? (
+                        <CircularProgress color="secondary" />
+                    ) : (
+                        books.map((book) => (
+                            <TableRow
+                                evenColor={COLORS.background.lighterSecondary}
+                            >
+                                <TableElement position="center">
+                                    <input type="checkbox"></input>
+                                </TableElement>
+                                <TableElement>{book.title}</TableElement>
+                                <TableElement>{book.author}</TableElement>
+                                <TableElement>{book.genre}</TableElement>
+                                <TableElement>{book.bookshelf}</TableElement>
+                            </TableRow>
+                        ))
+                    )}
                 </Table>
             </TableContainer>
             <ButtonsContainer>

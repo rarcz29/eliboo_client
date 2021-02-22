@@ -1,4 +1,3 @@
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import React, { useState } from 'react';
 import COLORS from 'styles/colors';
 import { Header, Logo, Navbar, UserMenu } from '../components';
@@ -14,7 +13,7 @@ const MainLayout = ({ logout, children }) => {
     const [showUserMenu, setShowUserMenu] = useState(false);
 
     const handleClickAway = () => {
-        //setShowUserMenu(false);
+        setShowUserMenu(false);
     };
 
     return (
@@ -30,22 +29,19 @@ const MainLayout = ({ logout, children }) => {
                     setShowUserMenu={setShowUserMenu}
                     height="70px"
                 />
-                <ClickAwayListener onClickAway={handleClickAway}>
-                    <div>
-                        <UserMenu
-                            top="70px"
-                            right={showUserMenu ? '0' : '-200px'}
-                            backgroundColor={COLORS.background.lighterSecondary}
-                            color={COLORS.foreground.secondary}
-                            highlightColor={COLORS.foreground.primary}
-                            width="200px"
-                            height="200px"
-                        >
-                            <p>ACCOUNT</p>
-                            <p onClick={logout}>LOG OUT</p>
-                        </UserMenu>
-                    </div>
-                </ClickAwayListener>
+                <UserMenu
+                    onMouseLeave={handleClickAway}
+                    top="70px"
+                    right={showUserMenu ? '0' : '-210px'}
+                    backgroundColor={COLORS.background.lighterSecondary}
+                    color={COLORS.foreground.secondary}
+                    highlightColor={COLORS.foreground.primary}
+                    width="200px"
+                    height="200px"
+                >
+                    <p>ACCOUNT</p>
+                    <p onClick={logout}>LOG OUT</p>
+                </UserMenu>
                 <StyledMain>{children}</StyledMain>
             </RightSideContainer>
         </Container>

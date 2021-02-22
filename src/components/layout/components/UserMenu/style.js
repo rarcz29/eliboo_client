@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
 export const Menu = styled.div`
-    position: fixed;
-    top: ${(props) => props.top};
-    right: ${(props) => props.right};
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -14,7 +11,6 @@ export const Menu = styled.div`
     color: ${(props) => props.color};
     letter-spacing: 0.05rem;
     font-weight: bold;
-    transition: right ease-in-out 0.3s;
     border-radius: 0 0 0 0.2rem;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
 
@@ -26,4 +22,15 @@ export const Menu = styled.div`
         cursor: pointer;
         color: ${(props) => props.highlightColor};
     }
+`;
+
+export const MenuWrapper = styled.div`
+    position: fixed;
+    top: 0;
+    right: ${(props) => props.right};
+    width: ${(props) => props.width};
+    height: ${(props) => parseInt(props.height) + parseInt(props.top) + 'px'};
+    padding-top: ${(props) => props.top};
+    transition: right ease-in-out 0.3s;
+    z-index: 999;
 `;

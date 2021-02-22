@@ -18,6 +18,7 @@ export const StyledAvatar = styled(Avatar)`
         background-color: ${COLORS.buttons.blue};
         color: ${COLORS.foreground.primary};
         transition: background-color ease-in-out 0.3s;
+        z-index: 9999;
 
         &:hover {
             cursor: pointer;

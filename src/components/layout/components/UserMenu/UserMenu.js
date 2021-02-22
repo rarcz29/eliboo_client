@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from './style';
+import { Menu, MenuWrapper } from './style';
 
 const UserMenu = ({
     className,
@@ -10,21 +10,28 @@ const UserMenu = ({
     backgroundColor,
     color,
     highlightColor,
+    onMouseLeave,
     children,
 }) => {
     return (
-        <Menu
-            className={className + ' click-outside-element'}
+        <MenuWrapper
             top={top}
             right={right}
             width={width}
             height={height}
-            backgroundColor={backgroundColor}
-            color={color}
-            highlightColor={highlightColor}
+            onMouseLeave={onMouseLeave}
         >
-            {children}
-        </Menu>
+            <Menu
+                className={className}
+                backgroundColor={backgroundColor}
+                color={color}
+                highlightColor={highlightColor}
+                width={width}
+                height={height}
+            >
+                {children}
+            </Menu>
+        </MenuWrapper>
     );
 };
 

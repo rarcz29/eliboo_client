@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { UserContext } from 'context/userContext';
+import React, { useContext, useState } from 'react';
 import COLORS from 'styles/colors';
 import { Header, Logo, Navbar, UserMenu } from '../components';
 import {
@@ -8,7 +9,8 @@ import {
     StyledMain,
 } from './style';
 
-const MainLayout = ({ logout, children }) => {
+const MainLayout = ({ children }) => {
+    const userContext = useContext(UserContext);
     const [page, setPage] = useState('Home');
     const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -40,7 +42,13 @@ const MainLayout = ({ logout, children }) => {
                     height="200px"
                 >
                     <p>ACCOUNT</p>
-                    <p onClick={logout}>LOG OUT</p>
+                    <p
+                        onClick={() =>
+                            userContext.dispatch({ type: 'LOG_OUT' })
+                        }
+                    >
+                        LOG OUT
+                    </p>
                 </UserMenu>
                 <StyledMain>{children}</StyledMain>
             </RightSideContainer>

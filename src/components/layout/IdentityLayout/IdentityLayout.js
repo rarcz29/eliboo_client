@@ -80,27 +80,25 @@ const IdentityLayout = ({ children }) => {
 
     const authenticate = async (formDataJsonString) => {
         userContext.dispatch({ type: 'SET_LOADING' });
-        console.log(userContext.state);
         const response = await authService.login(formDataJsonString);
 
         if (response?.token) {
             const userData = authService.getUserData();
             userContext.dispatch({ type: 'SIGN_IN', payload: userData });
-            // } else {
-            //     userContext.dispatch({
-            //         type: 'SET_MESSAGE',
-            //         payload: 'Something went wrong',
-            //     });
+            console.log(userContext.state);
+        } else {
+            userContext.dispatch({
+                type: 'SET_MESSAGE',
+                payload: 'Something went wrong',
+            });
         }
 
         userContext.dispatch({ type: 'UNSET_LOADING' });
-        console.log(userContext.state);
     };
 
     const register = async (formDataJsonString) => {
         userContext.dispatch({ type: 'SET_LOADING' });
         const response = await authService.register(formDataJsonString);
-        console.log(response);
 
         // if (response?.token) {
         //     const userData = authService.getUserData();
@@ -132,8 +130,6 @@ const IdentityLayout = ({ children }) => {
             }
         }
     };
-
-    console.log(userContext.state);
 
     return (
         <>

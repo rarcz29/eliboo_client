@@ -30,8 +30,8 @@ const reducer = (state, action) => {
                 isLoading: false,
                 isAuthenticated: true,
                 userData: {
-                    id: action.payload.id,
-                    username: action.payload.username,
+                    id: action.payload.nameid,
+                    username: action.payload.unique_name,
                     email: action.payload.email,
                 },
                 errorMessage: '',

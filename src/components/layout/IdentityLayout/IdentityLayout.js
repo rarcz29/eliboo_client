@@ -98,19 +98,19 @@ const IdentityLayout = ({ children }) => {
         userContext.dispatch({ type: 'UNSET_LOADING' });
     };
 
+    // TODO: fix registration
     const register = async (formDataJsonString) => {
         userContext.dispatch({ type: 'SET_LOADING' });
         const response = await authService.register(formDataJsonString);
 
-        // if (response?.token) {
-        //     const userData = authService.getUserData();
-        //     userContext.dispatch({ type: 'SIGN_IN', payload: userData });
-        // } else {
-        //     userContext.dispatch({
-        //         type: 'SET_MESSAGE',
-        //         payload: 'Something went wrong',
-        //     });
-        // }
+        if (response === null) {
+            history.push(ROUTING.SIGN_IN);
+            userContext.dispatch({ type: 'UNSET_LOADING' });
+            setLinkPath(STATUS[1]);
+            setSubmitText(STATUS[0]);
+        } else {
+            setErrorMessage('Ups, try again');
+        }
 
         userContext.dispatch({ type: 'UNSET_LOADING' });
     };

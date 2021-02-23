@@ -42,9 +42,41 @@ const HomeView = () => {
             });
     }, []);
 
+    const handleUpperSubmitButtonClick = (button) => {
+        const form = document.querySelector('#first-form');
+        const data = new FormData(form);
+        const plainFormData = Object.fromEntries(data.entries());
+
+        console.log(JSON.stringify(plainFormData));
+
+        switch (button) {
+            case submitButtons1[0]:
+                fetch(API_ENDPOINTS.BOOKS, {
+                    headers: {
+                        Authorization: 'Bearer ' + authService.getToken(),
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(plainFormData),
+                })
+                    .then((response) => response.text())
+                    .then((data) => {
+                        console.log(data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+                break;
+            case submitButtons1[1]:
+                console.log('search');
+                break;
+        }
+    };
+
     return (
         <Grid>
-            <div>
+            <form id="first-form" onSubmit={(event) => event.preventDefault()}>
                 <InputsContainer>
                     {inputs.map((input) => (
                         <TextInput
@@ -60,12 +92,15 @@ const HomeView = () => {
                 </InputsContainer>
                 <ButtonsContainer>
                     {submitButtons1.map((button) => (
-                        <DefaultButton type="submit" width="30%">
+                        <DefaultButton
+                            onClick={() => handleUpperSubmitButtonClick(button)}
+                            width="30%"
+                        >
                             {button}
                         </DefaultButton>
                     ))}
                 </ButtonsContainer>
-            </div>
+            </form>
             <TableContainer>
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>

@@ -2,9 +2,10 @@ import React from 'react';
 import COLORS from 'styles/colors';
 import Button from '../Button';
 
-function DefaultButton({ type, width, children, className }) {
+function DefaultButton({ type, width, children, className, onClick }) {
     return (
         <Button
+            onClick={onClick}
             className={className}
             type={type}
             width={width}

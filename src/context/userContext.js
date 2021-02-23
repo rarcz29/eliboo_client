@@ -14,17 +14,17 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-    let newState = {};
-
     switch (action.type) {
         case 'SET_LOADING':
-            newState = state;
-            newState.isLoading = true;
-            return newState;
+            return {
+                ...state,
+                isLoading: true,
+            };
         case 'UNSET_LOADING':
-            newState = state;
-            newState.isLoading = false;
-            return newState;
+            return {
+                ...state,
+                isLoading: false,
+            };
         case 'SIGN_IN':
             return {
                 isLoading: false,
@@ -43,9 +43,15 @@ const reducer = (state, action) => {
         case 'LOG_OUT':
             return initialState;
         case 'SET_MESSAGE':
-            return (state.errorMessage = action.payload);
+            return {
+                ...state,
+                errorMessage: action.payload,
+            };
         case 'CLEAR_MESSAGE':
-            return (state.errorMessage = '');
+            return {
+                ...state,
+                errorMessage: '',
+            };
         default:
             return state;
     }

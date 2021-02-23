@@ -50,8 +50,11 @@ const reducer = async (state, action) => {
             console.log('SIGN_UP');
             break;
         case 'LOG_OUT':
+            authService.logout();
             return initialState;
-            break;
+        case 'CLEAR_MESSAGE':
+            let newState = state.errorMessage = '';
+            return newState;
         default:
             return state;
     }

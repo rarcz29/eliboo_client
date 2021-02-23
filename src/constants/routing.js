@@ -1,8 +1,9 @@
 const ROUTING = {
-    login: '/login',
-    register: '/register',
-    home: '/home',
-    myList: '/list',
+    DEFAULT: '/';
+    SIGN_IN: '/login',
+    SIGN_UP: '/register',
+    HOME: '/home',
+    MY_LIST: '/list',
 };
 
 export default ROUTING;

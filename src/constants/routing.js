@@ -1,5 +1,5 @@
 const ROUTING = {
-    DEFAULT: '/';
+    DEFAULT: '/',
     SIGN_IN: '/login',
     SIGN_UP: '/register',
     HOME: '/home',

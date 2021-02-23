@@ -20,7 +20,7 @@ function Router() {
                     </Switch>
                 </MainLayout>
             ) : (
-                <IdentityLayout authenticate={authenticate} register={register}>
+                <IdentityLayout>
                     <Switch>
                         <Route
                             exact

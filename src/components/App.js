@@ -1,5 +1,6 @@
 import { UserContextProvider } from 'context/userContext';
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from 'styles/GlobalStyle';
 import Router from './Router';
 
@@ -30,8 +31,10 @@ function App() {
     // TODO: user routing paths from constants
     return (
         <UserContextProvider>
-            <GlobalStyle />
-            <Router />
+            <BrowserRouter>
+                <GlobalStyle />
+                <Router />
+            </BrowserRouter>
         </UserContextProvider>
     );
 }

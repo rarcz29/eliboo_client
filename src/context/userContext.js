@@ -1,10 +1,9 @@
 import React, { createContext, useReducer } from 'react';
-import authService from 'services/authService';
 
 export const UserContext = createContext();
 
 const initialState = {
-    isLoading: true,
+    isLoading: false,
     isAuthenticated: false,
     userData: {
         id: 0,
@@ -14,47 +13,39 @@ const initialState = {
     errorMessage: '',
 };
 
-const login = async (formDataJsonString) => {
-    const response = await authService.login(formDataJsonString);
+const reducer = (state, action) => {
+    let newState = {};
 
-    if (response?.token) {
-        const userData = authService.getUserData();
-        
-        return {
-            isLoading: false,
-            isAuthenticated: true,
-            userData: {
-                id: userData.id,
-                username: userData.username,
-                email: userData.email,
-            },
-            errorMessage = ''
-        };
-    } else if (response?.message) {
-        let state = initialState;
-        state.errorMessage = response.message;
-        return state;
-    } else {
-        let state = initialState;
-        state.errorMessage = "Something went wrong";
-        return state;
-    }
-};
-
-const reducer = async (state, action) => {
     switch (action.type) {
+        case 'SET_LOADING':
+            newState = state;
+            newState.isLoading = true;
+            return newState;
+        case 'UNSET_LOADING':
+            newState = state;
+            newState.isLoading = false;
+            return newState;
         case 'SIGN_IN':
-            login(action.payload);
-            break;
+            return {
+                isLoading: false,
+                isAuthenticated: true,
+                userData: {
+                    id: action.payload.id,
+                    username: action.payload.username,
+                    email: action.payload.email,
+                },
+                errorMessage: '',
+            };
         case 'SIGN_UP':
+            // TODO: sing up method
             console.log('SIGN_UP');
             break;
         case 'LOG_OUT':
-            authService.logout();
             return initialState;
+        case 'SET_MESSAGE':
+            return (state.errorMessage = action.payload);
         case 'CLEAR_MESSAGE':
-            let newState = state.errorMessage = '';
-            return newState;
+            return (state.errorMessage = '');
         default:
             return state;
     }

@@ -1,7 +1,9 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DefaultButton from 'components/common/buttons/DefaultButton';
 import ROUTING from 'constants/routing';
-import React, { useState } from 'react';
+import { UserContext } from 'context/userContext';
+import React, { useContext, useState } from 'react';
+import authService from 'services/authService';
 import { COLORS, IdentityGlobalStyle } from 'styles';
 import Logo from '../components/Logo';
 import {
@@ -14,20 +16,20 @@ import {
 
 const STATUS = ['Log in', 'Sign up'];
 
-const IdentityLayout = ({ authenticate, register, children }) => {
+const IdentityLayout = ({ children }) => {
+    const userContext = useContext(UserContext);
     const [linkPath, setLinkPath] = useState(
-        window.location.pathname === ROUTING.register
-            ? ROUTING.login
-            : ROUTING.register
+        window.location.pathname === ROUTING.SIGN_UP
+            ? ROUTING.SIGN_IN
+            : ROUTING.SIGN_UP
     );
     const [linkText, setLinkText] = useState(
-        linkPath === ROUTING.register ? STATUS[1] : STATUS[0]
+        linkPath === ROUTING.SIGN_UP ? STATUS[1] : STATUS[0]
     );
     const [submitText, setSubmitText] = useState(
-        linkPath === ROUTING.register ? STATUS[0] : STATUS[1]
+        linkPath === ROUTING.SIGN_UP ? STATUS[0] : STATUS[1]
     );
     const [errorMessage, setErrorMessage] = useState('');
-    const [loading, setLoading] = useState(false);
 
     const resetErrorMessage = () => {
         setErrorMessage('');
@@ -40,12 +42,12 @@ const IdentityLayout = ({ authenticate, register, children }) => {
     const handleLinkClick = () => {
         resetErrorMessage();
 
-        if (linkPath === ROUTING.register) {
-            setLinkPath(ROUTING.login);
+        if (linkPath === ROUTING.SIGN_UP) {
+            setLinkPath(ROUTING.SIGN_IN);
             setLinkText(STATUS[0]);
             setSubmitText(STATUS[1]);
         } else {
-            setLinkPath(ROUTING.register);
+            setLinkPath(ROUTING.SIGN_UP);
             setLinkText(STATUS[1]);
             setSubmitText(STATUS[0]);
         }
@@ -76,6 +78,43 @@ const IdentityLayout = ({ authenticate, register, children }) => {
         return properData;
     };
 
+    const authenticate = async (formDataJsonString) => {
+        userContext.dispatch({ type: 'SET_LOADING' });
+        console.log(userContext.state);
+        const response = await authService.login(formDataJsonString);
+
+        if (response?.token) {
+            const userData = authService.getUserData();
+            userContext.dispatch({ type: 'SIGN_IN', payload: userData });
+            // } else {
+            //     userContext.dispatch({
+            //         type: 'SET_MESSAGE',
+            //         payload: 'Something went wrong',
+            //     });
+        }
+
+        userContext.dispatch({ type: 'UNSET_LOADING' });
+        console.log(userContext.state);
+    };
+
+    const register = async (formDataJsonString) => {
+        userContext.dispatch({ type: 'SET_LOADING' });
+        const response = await authService.register(formDataJsonString);
+        console.log(response);
+
+        // if (response?.token) {
+        //     const userData = authService.getUserData();
+        //     userContext.dispatch({ type: 'SIGN_IN', payload: userData });
+        // } else {
+        //     userContext.dispatch({
+        //         type: 'SET_MESSAGE',
+        //         payload: 'Something went wrong',
+        //     });
+        // }
+
+        userContext.dispatch({ type: 'UNSET_LOADING' });
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -85,15 +124,16 @@ const IdentityLayout = ({ authenticate, register, children }) => {
 
         if (properData) {
             const formDataJsonString = JSON.stringify(plainFormData);
-            setLoading(true);
 
             if (submitText === STATUS[0]) {
-                authenticate(formDataJsonString).then(() => setLoading(false));
+                authenticate(formDataJsonString);
             } else if (submitText === STATUS[1]) {
-                register(formDataJsonString).then(() => setLoading(false));
+                register(formDataJsonString);
             }
         }
     };
+
+    console.log(userContext.state);
 
     return (
         <>
@@ -101,9 +141,9 @@ const IdentityLayout = ({ authenticate, register, children }) => {
             <Container>
                 <Logo width="90%" />
                 <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-                <StyledForm onSubmit={handleSubmit} noValidate={loading}>
+                <StyledForm onSubmit={handleSubmit}>
                     {children}
-                    {loading ? (
+                    {userContext.state.isLoading ? (
                         <CircularProgress color="secondary" size="45px" />
                     ) : (
                         <DefaultButton

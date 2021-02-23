@@ -3,6 +3,7 @@ import DefaultButton from 'components/common/buttons/DefaultButton';
 import ROUTING from 'constants/routing';
 import { UserContext } from 'context/userContext';
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import authService from 'services/authService';
 import { COLORS, IdentityGlobalStyle } from 'styles';
 import Logo from '../components/Logo';
@@ -17,6 +18,7 @@ import {
 const STATUS = ['Log in', 'Sign up'];
 
 const IdentityLayout = ({ children }) => {
+    const history = useHistory();
     const userContext = useContext(UserContext);
     const [linkPath, setLinkPath] = useState(
         window.location.pathname === ROUTING.SIGN_UP
@@ -85,7 +87,7 @@ const IdentityLayout = ({ children }) => {
         if (response?.token) {
             const userData = authService.getUserData();
             userContext.dispatch({ type: 'SIGN_IN', payload: userData });
-            console.log(userContext.state);
+            history.push(ROUTING.DEFAULT);
         } else {
             userContext.dispatch({
                 type: 'SET_MESSAGE',

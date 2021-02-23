@@ -1,7 +1,7 @@
 import { UserContextProvider } from 'context/userContext';
 import React from 'react';
+import GlobalStyle from 'styles/GlobalStyle';
 import Router from './Router';
-import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
     // const authenticate = async (formDataJsonString) => {

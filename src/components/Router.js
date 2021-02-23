@@ -1,7 +1,9 @@
-import { ROUTING } from 'constants/routing';
+import ROUTING from 'constants/routing';
 import { UserContext } from 'context/userContext';
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { HomeView, LoginView, MyListView, RegisterView } from 'views';
+import { IdentityLayout, MainLayout } from './layout';
 
 function Router() {
     const userContext = useContext(UserContext);
@@ -9,7 +11,7 @@ function Router() {
     return (
         <>
             {userContext.state.isAuthenticated ? (
-                <MainLayout logout={logout}>
+                <MainLayout>
                     <Switch>
                         <Route
                             exact
@@ -24,7 +26,7 @@ function Router() {
                     <Switch>
                         <Route
                             exact
-                            path={[ROUTING.DEFAULT, SIGN_IN]}
+                            path={[ROUTING.DEFAULT, ROUTING.SIGN_IN]}
                             component={LoginView}
                         />
                         <Route

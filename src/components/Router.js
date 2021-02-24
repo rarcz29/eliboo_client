@@ -3,6 +3,7 @@ import { UserContext } from 'context/userContext';
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
+    BookshelvesView,
     HomeView,
     LoginView,
     MyListView,
@@ -28,6 +29,10 @@ function Router() {
                         <Route
                             path={ROUTING.READING_NOW}
                             component={ReadingNowView}
+                        />
+                        <Route
+                            path={ROUTING.BOOKSHELVES}
+                            component={BookshelvesView}
                         />
                     </Switch>
                 </MainLayout>

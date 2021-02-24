@@ -19,7 +19,7 @@ const Navbar = ({ height, width, setPage }) => {
                 Reading now
             </StyledLink>
             <StyledLink
-                to={ROUTING.HOME}
+                to={ROUTING.BOOKSHELVES}
                 onClick={() => setPage('Bookshelves')}
             >
                 Bookshelves

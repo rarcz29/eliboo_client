@@ -5,6 +5,7 @@ const ROUTING = {
     HOME: '/home',
     MY_LIST: '/list',
     READING_NOW: '/reading',
+    BOOKSHELVES: '/bookshelves',
 };
 
 export default ROUTING;

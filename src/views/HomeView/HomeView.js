@@ -23,10 +23,14 @@ const inputs = ['Title', 'Author', 'Genre', 'Bookshelf'];
 const submitButtons1 = ['Add', 'Search'];
 const submitButtons2 = ['Add to my list', 'Remove'];
 
+const clearCheckboxes = () => {
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+};
+
 const HomeView = () => {
     const [loading, setLoading] = useState(true);
     const [books, setBooks] = useState([]);
-    const [snackbar, setSnackbar] = useState(false);
 
     const loadBooks = () => {
         axios
@@ -38,7 +42,6 @@ const HomeView = () => {
             .then((response) => {
                 setLoading(false);
                 setBooks(response.data);
-                setSnackbar(true);
             });
     };
 
@@ -84,7 +87,25 @@ const HomeView = () => {
                     });
                 break;
             case submitButtons1[1]:
-                console.log('search');
+                axios
+                    .get(
+                        API_ENDPOINTS.FIND_BOOKS +
+                            `?Title=${plainFormData.title}` +
+                            `&Author=${plainFormData.author}` +
+                            `&Genre=${plainFormData.genre}` +
+                            `&Bookshelf=${plainFormData.bookshelf}`,
+                        {
+                            headers: {
+                                Authorization:
+                                    'Bearer ' + authService.getToken(),
+                                'Content-Type': 'application/json',
+                                Accept: 'application/json',
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        setBooks(response.data);
+                    });
                 break;
         }
 
@@ -99,10 +120,16 @@ const HomeView = () => {
                 ids.push({ Id: checkbox.id });
             }
         });
-        console.log(ids);
 
         switch (button) {
             case submitButtons2[0]:
+                axios.post(API_ENDPOINTS.MY_LIST, ids, {
+                    headers: {
+                        Authorization: 'Bearer ' + authService.getToken(),
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    },
+                });
                 break;
 
             case submitButtons2[1]:
@@ -118,6 +145,8 @@ const HomeView = () => {
                 });
                 break;
         }
+
+        clearCheckboxes();
     };
 
     return (

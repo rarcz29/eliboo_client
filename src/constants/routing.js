@@ -4,6 +4,7 @@ const ROUTING = {
     SIGN_UP: '/register',
     HOME: '/home',
     MY_LIST: '/list',
+    READING_NOW: '/reading',
 };
 
 export default ROUTING;

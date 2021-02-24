@@ -13,7 +13,7 @@ const Navbar = ({ height, width, setPage }) => {
                 My list
             </StyledLink>
             <StyledLink
-                to={ROUTING.HOME}
+                to={ROUTING.READING_NOW}
                 onClick={() => setPage('Reading Now')}
             >
                 Reading now

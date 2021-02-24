@@ -47,8 +47,6 @@ const HomeView = () => {
         const data = new FormData(form);
         const plainFormData = Object.fromEntries(data.entries());
 
-        console.log(JSON.stringify(plainFormData));
-
         switch (button) {
             case submitButtons1[0]:
                 fetch(API_ENDPOINTS.BOOKS, {
@@ -60,7 +58,7 @@ const HomeView = () => {
                     method: 'POST',
                     body: JSON.stringify(plainFormData),
                 })
-                    .then((response) => response.text())
+                    .then((response) => response.json())
                     .then((data) => {
                         console.log(data);
                     })
@@ -70,6 +68,27 @@ const HomeView = () => {
                 break;
             case submitButtons1[1]:
                 console.log('search');
+                break;
+        }
+
+        form.reset();
+    };
+
+    const handleLowerSubmitButtonClick = (button) => {
+        const checkboxes = document.querySelectorAll('input[type=checkbox]');
+
+        switch (button) {
+            case submitButtons2[0]:
+                break;
+
+            case submitButtons2[1]:
+                let ids = [];
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked && checkbox.id) {
+                        ids.push(checkbox.id);
+                    }
+                });
+                console.log(ids);
                 break;
         }
     };
@@ -119,7 +138,7 @@ const HomeView = () => {
                                 evenColor={COLORS.background.lighterSecondary}
                             >
                                 <TableElement position="center">
-                                    <input type="checkbox"></input>
+                                    <input id={book.id} type="checkbox"></input>
                                 </TableElement>
                                 <TableElement>{book.title}</TableElement>
                                 <TableElement>{book.author}</TableElement>
@@ -132,7 +151,11 @@ const HomeView = () => {
             </TableContainer>
             <ButtonsContainer>
                 {submitButtons2.map((button) => (
-                    <DefaultButton width="30%" height="45px">
+                    <DefaultButton
+                        onClick={() => handleLowerSubmitButtonClick(button)}
+                        width="30%"
+                        height="45px"
+                    >
                         {button}
                     </DefaultButton>
                 ))}

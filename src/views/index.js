@@ -1,7 +1,15 @@
+import BookshelvesView from './BookshelvesView';
 import HomeView from './HomeView';
 import LoginView from './LoginView';
 import MyListView from './MyListView';
 import ReadingNowView from './ReadingNowView';
 import RegisterView from './RegisterView';
 
-export { HomeView, LoginView, MyListView, RegisterView, ReadingNowView };
+export {
+    HomeView,
+    LoginView,
+    MyListView,
+    RegisterView,
+    ReadingNowView,
+    BookshelvesView,
+};

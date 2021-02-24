@@ -16,7 +16,7 @@ import { ButtonsContainer, Grid, TableContainer } from './style';
 const tableHeaders = ['Title', 'Author', 'Genre', 'Bookshelf'];
 const submitButtons = ['Add to "Reading Now"', 'Remove from my list'];
 
-const ReadingNowView = () => {
+const BookshelvesView = () => {
     const [loading, setLoading] = useState(true);
     const [books, setBooks] = useState([]);
 
@@ -73,7 +73,6 @@ const ReadingNowView = () => {
 
     return (
         <Grid>
-            <div></div>
             <TableContainer>
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
@@ -118,4 +117,4 @@ const ReadingNowView = () => {
     );
 };
 
-export default ReadingNowView;
+export default BookshelvesView;

@@ -1,4 +1,5 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
+import axios from 'axios';
 import DefaultButton from 'components/common/buttons/DefaultButton';
 import TextInput from 'components/common/inputs/TextInput';
 import {
@@ -25,21 +26,37 @@ const submitButtons2 = ['Add to my list', 'Remove'];
 const HomeView = () => {
     const [loading, setLoading] = useState(true);
     const [books, setBooks] = useState([]);
+    const [snackbar, setSnackbar] = useState(false);
+
+    const loadBooks = () => {
+        axios
+            .get(API_ENDPOINTS.GET_ALL_BOOKS, {
+                headers: {
+                    Authorization: 'Bearer ' + authService.getToken(),
+                },
+            })
+            .then((response) => {
+                setLoading(false);
+                setBooks(response.data);
+                setSnackbar(true);
+            });
+    };
 
     useEffect(() => {
-        fetch(API_ENDPOINTS.GET_ALL_BOOKS, {
-            headers: {
-                Authorization: 'Bearer ' + authService.getToken(),
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setBooks(data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        loadBooks();
+        // fetch(API_ENDPOINTS.GET_ALL_BOOKS, {
+        //     headers: {
+        //         Authorization: 'Bearer ' + authService.getToken(),
+        //     },
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         setBooks(data);
+        //         setLoading(false);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
     }, []);
 
     const handleUpperSubmitButtonClick = (button) => {
@@ -76,19 +93,29 @@ const HomeView = () => {
 
     const handleLowerSubmitButtonClick = (button) => {
         const checkboxes = document.querySelectorAll('input[type=checkbox]');
+        let ids = [];
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked && checkbox.id) {
+                ids.push({ Id: checkbox.id });
+            }
+        });
+        console.log(ids);
 
         switch (button) {
             case submitButtons2[0]:
                 break;
 
             case submitButtons2[1]:
-                let ids = [];
-                checkboxes.forEach((checkbox) => {
-                    if (checkbox.checked && checkbox.id) {
-                        ids.push(checkbox.id);
-                    }
+                axios({
+                    method: 'delete',
+                    url: API_ENDPOINTS.BOOKS,
+                    data: ids,
+                    headers: {
+                        Authorization: 'Bearer ' + authService.getToken(),
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    },
                 });
-                console.log(ids);
                 break;
         }
     };

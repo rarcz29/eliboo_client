@@ -1,5 +1,7 @@
+import { logOutAction } from 'actions/userActions';
 import { UserContext } from 'context/userContext';
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import COLORS from 'styles/colors';
 import { Header, Logo, Navbar, UserMenu } from '../components';
 import {
@@ -10,6 +12,7 @@ import {
 } from './style';
 
 const MainLayout = ({ children }) => {
+    const history = useHistory();
     const userContext = useContext(UserContext);
     const [page, setPage] = useState('Home');
     const [showUserMenu, setShowUserMenu] = useState(false);
@@ -42,11 +45,7 @@ const MainLayout = ({ children }) => {
                     height="200px"
                 >
                     <p>ACCOUNT</p>
-                    <p
-                        onClick={() =>
-                            userContext.dispatch({ type: 'LOG_OUT' })
-                        }
-                    >
+                    <p onClick={() => logOutAction(userContext, history)}>
                         LOG OUT
                     </p>
                 </UserMenu>

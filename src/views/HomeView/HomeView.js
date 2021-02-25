@@ -1,4 +1,5 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { logOutAction } from 'actions/userActions';
 import axios from 'axios';
 import DefaultButton from 'components/common/buttons/DefaultButton';
 import TextInput from 'components/common/inputs/TextInput';
@@ -9,7 +10,9 @@ import {
     TableRow,
 } from 'components/common/tables';
 import API_ENDPOINTS from 'constants/apiEndpoints';
-import React, { useEffect, useState } from 'react';
+import { UserContext } from 'context/userContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import authService from 'services/authService';
 import COLORS from 'styles/colors';
 import {
@@ -35,6 +38,8 @@ const handleTopCheckboxChange = (event) => {
 };
 
 const HomeView = () => {
+    const history = useHistory();
+    const userContext = useContext(UserContext);
     const [loading, setLoading] = useState(true);
     const [books, setBooks] = useState([]);
 
@@ -48,6 +53,11 @@ const HomeView = () => {
             .then((response) => {
                 setLoading(false);
                 setBooks(response.data);
+            })
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    logOutAction(userContext, history);
+                }
             });
     };
 
@@ -88,7 +98,9 @@ const HomeView = () => {
                         loadBooks();
                     })
                     .catch((error) => {
-                        console.log(error);
+                        if (error.response.status === 401) {
+                            logOutAction(userContext, history);
+                        }
                     });
                 break;
             case submitButtons1[1]:
@@ -110,6 +122,11 @@ const HomeView = () => {
                     )
                     .then((response) => {
                         setBooks(response.data);
+                    })
+                    .catch((error) => {
+                        if (error.response.status === 401) {
+                            logOutAction(userContext, history);
+                        }
                     });
                 break;
         }
@@ -137,7 +154,11 @@ const HomeView = () => {
                             Accept: 'application/json',
                         },
                     })
-                    .then(alert('Ok'));
+                    .catch((error) => {
+                        if (error.response.status === 401) {
+                            logOutAction(userContext, history);
+                        }
+                    });
                 break;
 
             case submitButtons2[1]:
@@ -150,9 +171,15 @@ const HomeView = () => {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
                     },
-                }).then((response) => {
-                    loadBooks();
-                });
+                })
+                    .then((response) => {
+                        loadBooks();
+                    })
+                    .catch((error) => {
+                        if (error.response.status === 401) {
+                            logOutAction(userContext, history);
+                        }
+                    });
                 break;
         }
 

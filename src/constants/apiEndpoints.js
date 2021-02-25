@@ -8,6 +8,8 @@ const FIND_BOOKS = BOOKS + '/find';
 
 const MY_LIST = BASE_URL + '/list';
 
+const BOOKSHELVES = BASE_URL + '/bookshelves';
+
 export default {
     LOGIN_URL,
     REGISTER_URL,
@@ -15,4 +17,5 @@ export default {
     BOOKS,
     FIND_BOOKS,
     MY_LIST,
+    BOOKSHELVES,
 };

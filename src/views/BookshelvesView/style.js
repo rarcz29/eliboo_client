@@ -18,3 +18,9 @@ export const TableContainer = styled.div`
     overflow-y: auto;
     margin: 1rem 2rem;
 `;
+
+export const NewBookshelfForm = styled.form`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+`;

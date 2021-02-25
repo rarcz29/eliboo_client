@@ -14,7 +14,18 @@ import COLORS from 'styles/colors';
 import { ButtonsContainer, Grid, TableContainer } from './style';
 
 const tableHeaders = ['Title', 'Author', 'Genre', 'Bookshelf'];
-const submitButtons = ['Add to "Reading Now"', 'Remove from my list'];
+const submitButtons = ['Remove'];
+
+const clearCheckboxes = () => {
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+};
+
+const handleTopCheckboxChange = (event) => {
+    const topCheckbox = event.target;
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = topCheckbox.checked));
+};
 
 const MyListView = () => {
     const [loading, setLoading] = useState(true);
@@ -22,14 +33,19 @@ const MyListView = () => {
 
     const loadBooks = () => {
         axios
-            .get(API_ENDPOINTS.My_LIST, {
+            .get(API_ENDPOINTS.MY_LIST, {
                 headers: {
                     Authorization: 'Bearer ' + authService.getToken(),
+                    Accept: 'application/json',
                 },
             })
             .then((response) => {
                 setLoading(false);
                 setBooks(response.data);
+            })
+            .catch((error) => {
+                alert('error');
+                setLoading(false);
             });
     };
 
@@ -37,38 +53,26 @@ const MyListView = () => {
         loadBooks();
     }, []);
 
-    const handleSubmitButtonClick = (button) => {
-        // const checkboxes = document.querySelectorAll('input[type=checkbox]');
-        // let ids = [];
-        // checkboxes.forEach((checkbox) => {
-        //     if (checkbox.checked && checkbox.id) {
-        //         ids.push({ Id: checkbox.id });
-        //     }
-        // });
-        // switch (button) {
-        //     case submitButtons2[0]:
-        //         axios.post(API_ENDPOINTS.MY_LIST, ids, {
-        //             headers: {
-        //                 Authorization: 'Bearer ' + authService.getToken(),
-        //                 'Content-Type': 'application/json',
-        //                 Accept: 'application/json',
-        //             },
-        //         });
-        //         break;
-        //     case submitButtons2[1]:
-        //         axios({
-        //             method: 'delete',
-        //             url: API_ENDPOINTS.BOOKS,
-        //             data: ids,
-        //             headers: {
-        //                 Authorization: 'Bearer ' + authService.getToken(),
-        //                 'Content-Type': 'application/json',
-        //                 Accept: 'application/json',
-        //             },
-        //         });
-        //         break;
-        // }
-        // clearCheckboxes();
+    const handleSubmitButtonClick = () => {
+        const checkboxes = document.querySelectorAll('input[type=checkbox]');
+        let ids = [];
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked && checkbox.id) {
+                ids.push({ Id: checkbox.id });
+            }
+        });
+
+        axios({
+            method: 'delete',
+            url: API_ENDPOINTS.MY_LIST,
+            data: ids,
+            headers: {
+                Authorization: 'Bearer ' + authService.getToken(),
+                'Content-Type': 'application/json',
+            },
+        });
+
+        clearCheckboxes();
     };
 
     return (
@@ -77,7 +81,10 @@ const MyListView = () => {
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
                         <TableHeader width="5rem" position="center">
-                            <input type="checkbox"></input>
+                            <input
+                                onChange={handleTopCheckboxChange}
+                                type="checkbox"
+                            ></input>
                         </TableHeader>
                         {tableHeaders.map((header) => (
                             <TableHeader>{header}</TableHeader>
@@ -105,7 +112,7 @@ const MyListView = () => {
             <ButtonsContainer>
                 {submitButtons.map((button) => (
                     <DefaultButton
-                        onClick={() => handleSubmitButtonClick(button)}
+                        onClick={() => handleSubmitButtonClick()}
                         width="30%"
                         height="45px"
                     >

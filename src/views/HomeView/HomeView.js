@@ -72,6 +72,7 @@ const HomeView = () => {
         const form = document.querySelector('#first-form');
         const data = new FormData(form);
         const plainFormData = Object.fromEntries(data.entries());
+        setLoading(true);
 
         switch (button) {
             case submitButtons1[0]:
@@ -86,7 +87,7 @@ const HomeView = () => {
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data);
+                        loadBooks();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -115,6 +116,7 @@ const HomeView = () => {
                 break;
         }
 
+        setLoading(false);
         form.reset();
     };
 
@@ -129,13 +131,15 @@ const HomeView = () => {
 
         switch (button) {
             case submitButtons2[0]:
-                axios.post(API_ENDPOINTS.MY_LIST, ids, {
-                    headers: {
-                        Authorization: 'Bearer ' + authService.getToken(),
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json',
-                    },
-                });
+                axios
+                    .post(API_ENDPOINTS.MY_LIST, ids, {
+                        headers: {
+                            Authorization: 'Bearer ' + authService.getToken(),
+                            'Content-Type': 'application/json',
+                            Accept: 'application/json',
+                        },
+                    })
+                    .then(alert('Ok'));
                 break;
 
             case submitButtons2[1]:

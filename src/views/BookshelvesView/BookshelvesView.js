@@ -22,7 +22,7 @@ import {
     TableContainer,
 } from './style';
 
-const tableHeaders = ['Id', 'Description'];
+const tableHeaders = ['Description'];
 const submitButtons = ['Remove'];
 
 const BookshelvesView = () => {
@@ -49,6 +49,7 @@ const BookshelvesView = () => {
     }, []);
 
     const handleFormSubmit = (event) => {
+        event.preventDefault();
         const form = event.target;
         const data = new FormData(form);
         const plainFormData = Object.fromEntries(data.entries());
@@ -103,17 +104,19 @@ const BookshelvesView = () => {
                     {loading ? (
                         <CircularProgress color="secondary" />
                     ) : (
-                        bookshelves.map((book) => (
+                        bookshelves.map((bookshelf) => (
                             <TableRow
                                 evenColor={COLORS.background.lighterSecondary}
                             >
                                 <TableElement position="center">
-                                    <input id={book.id} type="checkbox"></input>
+                                    <input
+                                        id={bookshelf.id}
+                                        type="checkbox"
+                                    ></input>
                                 </TableElement>
-                                <TableElement>{book.title}</TableElement>
-                                <TableElement>{book.author}</TableElement>
-                                <TableElement>{book.genre}</TableElement>
-                                <TableElement>{book.bookshelf}</TableElement>
+                                <TableElement>
+                                    {bookshelf.description}
+                                </TableElement>
                             </TableRow>
                         ))
                     )}

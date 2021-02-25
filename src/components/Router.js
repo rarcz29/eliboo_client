@@ -7,6 +7,7 @@ import {
     HomeView,
     LoginView,
     MyListView,
+    NotFoundView,
     ReadingNowView,
     RegisterView,
 } from 'views';
@@ -34,6 +35,11 @@ function Router() {
                             path={ROUTING.BOOKSHELVES}
                             component={BookshelvesView}
                         />
+                        <Route component={NotFoundView} />
+                        <Redirect
+                            from={[ROUTING.SIGN_UP, ROUTING.SIGN_IN]}
+                            to={ROUTING.DEFAULT}
+                        />
                     </Switch>
                 </MainLayout>
             ) : (
@@ -48,8 +54,14 @@ function Router() {
                             path={ROUTING.SIGN_UP}
                             component={RegisterView}
                         />
+                        <Route component={NotFoundView} />
                         <Redirect
-                            from={[ROUTING.HOME, ROUTING.MY_LIST]}
+                            from={[
+                                ROUTING.HOME,
+                                ROUTING.MY_LIST,
+                                ROUTING.READING_NOW,
+                                ROUTING.BOOKSHELVES,
+                            ]}
                             to={ROUTING.DEFAULT}
                         />
                     </Switch>

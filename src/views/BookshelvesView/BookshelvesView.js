@@ -13,14 +13,14 @@ import authService from 'services/authService';
 import COLORS from 'styles/colors';
 import { ButtonsContainer, Grid, TableContainer } from './style';
 
-const tableHeaders = ['Title', 'Author', 'Genre', 'Bookshelf'];
-const submitButtons = ['Add to "Reading Now"', 'Remove from my list'];
+const tableHeaders = ['Id', 'Description'];
+const submitButtons = ['Remove'];
 
 const BookshelvesView = () => {
     const [loading, setLoading] = useState(true);
-    const [books, setBooks] = useState([]);
+    const [bookshelves, setBookshelves] = useState([]);
 
-    const loadBooks = () => {
+    const loadBookshelves = () => {
         axios
             .get(API_ENDPOINTS.My_LIST, {
                 headers: {
@@ -29,12 +29,12 @@ const BookshelvesView = () => {
             })
             .then((response) => {
                 setLoading(false);
-                setBooks(response.data);
+                setBookshelves(response.data);
             });
     };
 
     useEffect(() => {
-        loadBooks();
+        loadBookshelves();
     }, []);
 
     const handleSubmitButtonClick = (button) => {
@@ -73,6 +73,7 @@ const BookshelvesView = () => {
 
     return (
         <Grid>
+            <div></div>
             <TableContainer>
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
@@ -86,7 +87,7 @@ const BookshelvesView = () => {
                     {loading ? (
                         <CircularProgress color="secondary" />
                     ) : (
-                        books.map((book) => (
+                        bookshelves.map((book) => (
                             <TableRow
                                 evenColor={COLORS.background.lighterSecondary}
                             >

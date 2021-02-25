@@ -28,6 +28,12 @@ const clearCheckboxes = () => {
     checkboxes.forEach((checkbox) => (checkbox.checked = false));
 };
 
+const handleTopCheckboxChange = (event) => {
+    const topCheckbox = event.target;
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = topCheckbox.checked));
+};
+
 const HomeView = () => {
     const [loading, setLoading] = useState(true);
     const [books, setBooks] = useState([]);
@@ -180,7 +186,10 @@ const HomeView = () => {
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
                         <TableHeader width="5rem" position="center">
-                            <input type="checkbox"></input>
+                            <input
+                                onChange={handleTopCheckboxChange}
+                                type="checkbox"
+                            ></input>
                         </TableHeader>
                         {inputs.map((input) => (
                             <TableHeader>{input}</TableHeader>

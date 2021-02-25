@@ -70,6 +70,8 @@ const MyListView = () => {
                 Authorization: 'Bearer ' + authService.getToken(),
                 'Content-Type': 'application/json',
             },
+        }).then((response) => {
+            loadBooks();
         });
 
         clearCheckboxes();

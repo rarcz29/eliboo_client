@@ -76,17 +76,15 @@ const HomeView = () => {
 
         switch (button) {
             case submitButtons1[0]:
-                fetch(API_ENDPOINTS.BOOKS, {
-                    headers: {
-                        Authorization: 'Bearer ' + authService.getToken(),
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(plainFormData),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
+                axios
+                    .post(API_ENDPOINTS.BOOKS, plainFormData, {
+                        headers: {
+                            Authorization: 'Bearer ' + authService.getToken(),
+                            'Content-Type': 'application/json',
+                            Accept: 'application/json',
+                        },
+                    })
+                    .then((response) => {
                         loadBooks();
                     })
                     .catch((error) => {
@@ -152,6 +150,8 @@ const HomeView = () => {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
                     },
+                }).then((response) => {
+                    loadBooks();
                 });
                 break;
         }

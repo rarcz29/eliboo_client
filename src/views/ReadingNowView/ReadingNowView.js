@@ -61,7 +61,9 @@ const ReadingNowView = () => {
     return (
         <Grid>
             <ReadingNowForm>
-                <StyledBookTitle width="60%">Book title</StyledBookTitle>
+                <StyledBookTitle fontSize="1.5rem" width="60%">
+                    Book title
+                </StyledBookTitle>
                 <DefaultButton type="submit" width="30%">
                     Return book
                 </DefaultButton>

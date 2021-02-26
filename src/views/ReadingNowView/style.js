@@ -4,7 +4,7 @@ export const Grid = styled.div`
     display: grid;
     height: calc(100vh - 110px);
     width: 100%;
-    grid-template-rows: 60px auto 60px;
+    grid-template-rows: 60px minmax(200px, auto) 60px;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -26,6 +26,6 @@ export const ReadingNowForm = styled.form`
 `;
 
 export const StyledBookTitle = styled.p`
-    font-size: ${(props) => props.font};
+    font-size: ${(props) => props.fontSize};
     width: ${(props) => props.width};
 `;

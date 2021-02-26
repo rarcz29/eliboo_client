@@ -18,3 +18,14 @@ export const TableContainer = styled.div`
     overflow-y: auto;
     margin: 1rem 2rem;
 `;
+
+export const ReadingNowForm = styled.form`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+`;
+
+export const StyledBookTitle = styled.p`
+    font-size: ${(props) => props.font};
+    width: ${(props) => props.width};
+`;

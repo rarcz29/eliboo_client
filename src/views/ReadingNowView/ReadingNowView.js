@@ -1,4 +1,5 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { logOutAction } from 'actions/userActions';
 import axios from 'axios';
 import DefaultButton from 'components/common/buttons/DefaultButton';
 import {
@@ -8,28 +9,46 @@ import {
     TableRow,
 } from 'components/common/tables';
 import API_ENDPOINTS from 'constants/apiEndpoints';
-import React, { useEffect, useState } from 'react';
+import { UserContext } from 'context/userContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import authService from 'services/authService';
 import COLORS from 'styles/colors';
-import { ButtonsContainer, Grid, TableContainer } from './style';
+import {
+    ButtonsContainer,
+    Grid,
+    ReadingNowForm,
+    StyledBookTitle,
+    TableContainer,
+} from './style';
 
 const tableHeaders = ['Title', 'Author', 'Genre', 'Bookshelf'];
-const submitButtons = ['Add to "Reading Now"', 'Remove from my list'];
+const submitButtons = ['Read'];
 
 const ReadingNowView = () => {
+    const history = useHistory();
+    const userContext = useContext(UserContext);
     const [loading, setLoading] = useState(true);
     const [books, setBooks] = useState([]);
 
     const loadBooks = () => {
         axios
-            .get(API_ENDPOINTS.My_LIST, {
+            .get(API_ENDPOINTS.MY_LIST, {
                 headers: {
                     Authorization: 'Bearer ' + authService.getToken(),
+                    Accept: 'application/json',
                 },
             })
             .then((response) => {
                 setLoading(false);
                 setBooks(response.data);
+            })
+            .catch((error) => {
+                setLoading(false);
+
+                if (error.response.status === 401) {
+                    logOutAction(userContext, history);
+                }
             });
     };
 
@@ -37,49 +56,20 @@ const ReadingNowView = () => {
         loadBooks();
     }, []);
 
-    const handleSubmitButtonClick = (button) => {
-        // const checkboxes = document.querySelectorAll('input[type=checkbox]');
-        // let ids = [];
-        // checkboxes.forEach((checkbox) => {
-        //     if (checkbox.checked && checkbox.id) {
-        //         ids.push({ Id: checkbox.id });
-        //     }
-        // });
-        // switch (button) {
-        //     case submitButtons2[0]:
-        //         axios.post(API_ENDPOINTS.MY_LIST, ids, {
-        //             headers: {
-        //                 Authorization: 'Bearer ' + authService.getToken(),
-        //                 'Content-Type': 'application/json',
-        //                 Accept: 'application/json',
-        //             },
-        //         });
-        //         break;
-        //     case submitButtons2[1]:
-        //         axios({
-        //             method: 'delete',
-        //             url: API_ENDPOINTS.BOOKS,
-        //             data: ids,
-        //             headers: {
-        //                 Authorization: 'Bearer ' + authService.getToken(),
-        //                 'Content-Type': 'application/json',
-        //                 Accept: 'application/json',
-        //             },
-        //         });
-        //         break;
-        // }
-        // clearCheckboxes();
-    };
+    const handleSubmitButtonClick = (button) => {};
 
     return (
         <Grid>
-            <div></div>
+            <ReadingNowForm>
+                <StyledBookTitle width="60%">Book title</StyledBookTitle>
+                <DefaultButton type="submit" width="30%">
+                    Return book
+                </DefaultButton>
+            </ReadingNowForm>
             <TableContainer>
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
-                        <TableHeader width="5rem" position="center">
-                            <input type="checkbox"></input>
-                        </TableHeader>
+                        <TableHeader width="5rem" position="center" />
                         {tableHeaders.map((header) => (
                             <TableHeader>{header}</TableHeader>
                         ))}
@@ -92,7 +82,11 @@ const ReadingNowView = () => {
                                 evenColor={COLORS.background.lighterSecondary}
                             >
                                 <TableElement position="center">
-                                    <input id={book.id} type="checkbox"></input>
+                                    <input
+                                        name="id"
+                                        value={book.id}
+                                        type="radio"
+                                    ></input>
                                 </TableElement>
                                 <TableElement>{book.title}</TableElement>
                                 <TableElement>{book.author}</TableElement>

@@ -25,6 +25,17 @@ import {
 const tableHeaders = ['Description'];
 const submitButtons = ['Remove'];
 
+const clearCheckboxes = () => {
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+};
+
+const handleTopCheckboxChange = (event) => {
+    const topCheckbox = event.target;
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = topCheckbox.checked));
+};
+
 const BookshelvesView = () => {
     const history = useHistory();
     const userContext = useContext(UserContext);
@@ -75,6 +86,36 @@ const BookshelvesView = () => {
             });
     };
 
+    const handleButtonClick = () => {
+        const checkboxes = document.querySelectorAll('input[type=checkbox]');
+        let ids = [];
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked && checkbox.id) {
+                ids.push({ id: checkbox.id });
+            }
+        });
+
+        axios({
+            method: 'delete',
+            url: API_ENDPOINTS.BOOKSHELVES,
+            data: ids,
+            headers: {
+                Authorization: 'Bearer ' + authService.getToken(),
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                loadBookshelves();
+            })
+            .catch((error) => {
+                if (error.response?.status === 401) {
+                    logOutAction(userContext, history);
+                }
+            });
+
+        clearCheckboxes();
+    };
+
     return (
         <Grid>
             <NewBookshelfForm onSubmit={handleFormSubmit}>
@@ -95,7 +136,10 @@ const BookshelvesView = () => {
                 <Table width="100%">
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
                         <TableHeader width="5rem" position="center">
-                            <input type="checkbox"></input>
+                            <input
+                                onChange={handleTopCheckboxChange}
+                                type="checkbox"
+                            ></input>
                         </TableHeader>
                         {tableHeaders.map((header) => (
                             <TableHeader>{header}</TableHeader>
@@ -124,7 +168,11 @@ const BookshelvesView = () => {
             </TableContainer>
             <ButtonsContainer>
                 {submitButtons.map((button) => (
-                    <DefaultButton width="30%" height="45px">
+                    <DefaultButton
+                        onClick={handleButtonClick}
+                        width="30%"
+                        height="45px"
+                    >
                         {button}
                     </DefaultButton>
                 ))}

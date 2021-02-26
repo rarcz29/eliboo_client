@@ -63,19 +63,6 @@ const HomeView = () => {
 
     useEffect(() => {
         loadBooks();
-        // fetch(API_ENDPOINTS.GET_ALL_BOOKS, {
-        //     headers: {
-        //         Authorization: 'Bearer ' + authService.getToken(),
-        //     },
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         setBooks(data);
-        //         setLoading(false);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
     }, []);
 
     const handleUpperSubmitButtonClick = (button) => {

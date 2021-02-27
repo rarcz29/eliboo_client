@@ -1,4 +1,5 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
+import checkboxActions from 'actions/checkboxActions';
 import { logOutAction } from 'actions/userActions';
 import axios from 'axios';
 import DefaultButton from 'components/common/buttons/DefaultButton';
@@ -18,17 +19,6 @@ import { ButtonsContainer, Grid, TableContainer } from './style';
 
 const tableHeaders = ['Title', 'Author', 'Genre', 'Bookshelf'];
 const submitButtons = ['Remove'];
-
-const clearCheckboxes = () => {
-    const checkboxes = document.querySelectorAll('input[type=checkbox]');
-    checkboxes.forEach((checkbox) => (checkbox.checked = false));
-};
-
-const handleTopCheckboxChange = (event) => {
-    const topCheckbox = event.target;
-    const checkboxes = document.querySelectorAll('input[type=checkbox]');
-    checkboxes.forEach((checkbox) => (checkbox.checked = topCheckbox.checked));
-};
 
 const MyListView = () => {
     const history = useHistory();
@@ -51,7 +41,7 @@ const MyListView = () => {
             .catch((error) => {
                 setLoading(false);
 
-                if (error.response.status === 401) {
+                if (error.response?.status !== 200) {
                     logOutAction(userContext, history);
                 }
             });
@@ -83,12 +73,12 @@ const MyListView = () => {
                 loadBooks();
             })
             .catch((error) => {
-                if (error.response.status === 401) {
+                if (error.response?.status !== 200) {
                     logOutAction(userContext, history);
                 }
             });
 
-        clearCheckboxes();
+        checkboxActions.clearCheckboxes();
     };
 
     return (
@@ -98,7 +88,9 @@ const MyListView = () => {
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
                         <TableHeader width="5rem" position="center">
                             <input
-                                onChange={handleTopCheckboxChange}
+                                onChange={
+                                    checkboxActions.handleTopCheckboxChange
+                                }
                                 type="checkbox"
                             ></input>
                         </TableHeader>

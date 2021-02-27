@@ -84,15 +84,12 @@ const IdentityLayout = ({ children }) => {
         userContext.dispatch({ type: 'SET_LOADING' });
         const response = await authService.login(formDataJsonString);
 
-        if (response?.token) {
+        if (response?.status === 200) {
             const userData = authService.getUserData();
             userContext.dispatch({ type: 'SIGN_IN', payload: userData });
             history.push(ROUTING.DEFAULT);
         } else {
-            userContext.dispatch({
-                type: 'SET_MESSAGE',
-                payload: 'Something went wrong',
-            });
+            setErrorMessage('Ups, something went wrong');
         }
 
         userContext.dispatch({ type: 'UNSET_LOADING' });
@@ -103,7 +100,7 @@ const IdentityLayout = ({ children }) => {
         userContext.dispatch({ type: 'SET_LOADING' });
         const response = await authService.register(formDataJsonString);
 
-        if (response === null) {
+        if (response?.status === 200) {
             history.push(ROUTING.SIGN_IN);
             userContext.dispatch({ type: 'UNSET_LOADING' });
             setLinkPath(STATUS[1]);

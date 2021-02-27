@@ -4,7 +4,7 @@ export const Grid = styled.div`
     display: grid;
     height: calc(100vh - 110px);
     width: 100%;
-    grid-template-rows: 210px minmax(200px, auto) 60px;
+    grid-template-rows: 210px auto 60px;
 `;
 
 export const InputsContainer = styled.div`

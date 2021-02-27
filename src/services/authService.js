@@ -1,3 +1,4 @@
+import axios from 'axios';
 import API_ENDPOINTS from '../constants/apiEndpoints';
 
 const LOCAL_STORAGE_DATA_NAME = 'user_token';
@@ -5,19 +6,15 @@ const LOCAL_STORAGE_DATA_NAME = 'user_token';
 const postData = async (formDataJsonString, url) => {
     let response = null;
 
-    await fetch(url, {
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        method: 'POST',
-        body: formDataJsonString,
-    })
-        .then((res) => res.json())
-        .then((data) => (response = data))
-        .catch((error) => {
-            return error;
-        });
+    await axios
+        .post(url, formDataJsonString, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        })
+        .then((res) => (response = res))
+        .catch((error) => (response = null));
 
     return response;
 };
@@ -29,7 +26,7 @@ const login = async (formDataJsonString) => {
     );
 
     if (response !== null) {
-        localStorage.setItem(LOCAL_STORAGE_DATA_NAME, response.token);
+        localStorage.setItem(LOCAL_STORAGE_DATA_NAME, response.data.token);
     }
 
     return response;

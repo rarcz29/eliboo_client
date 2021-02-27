@@ -23,13 +23,35 @@ import {
 } from './style';
 
 const tableHeaders = ['Title', 'Author', 'Genre', 'Bookshelf'];
-const submitButtons = ['Read'];
 
 const ReadingNowView = () => {
     const history = useHistory();
     const userContext = useContext(UserContext);
     const [loading, setLoading] = useState(true);
+    const [loadingCurrent, setLoadingCurrent] = useState(true);
     const [books, setBooks] = useState([]);
+    const [currentBook, setCurrentBook] = useState([]);
+
+    const loadCurrentBook = () => {
+        axios
+            .get(API_ENDPOINTS.CURRENT_BOOK, {
+                headers: {
+                    Authorization: 'Bearer ' + authService.getToken(),
+                    Accept: 'application/json',
+                },
+            })
+            .then((response) => {
+                setLoadingCurrent(false);
+                setCurrentBook(response.data);
+            })
+            .catch((error) => {
+                setLoadingCurrent(false);
+
+                if (error.response?.status !== 200) {
+                    logOutAction(userContext, history);
+                }
+            });
+    };
 
     const loadBooks = () => {
         axios
@@ -46,7 +68,7 @@ const ReadingNowView = () => {
             .catch((error) => {
                 setLoading(false);
 
-                if (error.response.status === 401) {
+                if (error.response?.status !== 200) {
                     logOutAction(userContext, history);
                 }
             });
@@ -54,15 +76,42 @@ const ReadingNowView = () => {
 
     useEffect(() => {
         loadBooks();
+        loadCurrentBook();
     }, []);
 
-    const handleSubmitButtonClick = (button) => {};
+    const handleSubmitButtonClick = () => {
+        const input = document.querySelector('input[type="radio"]:checked');
+
+        if (input?.value) {
+            axios
+                .patch(API_ENDPOINTS.CURRENT_BOOK + `/${input.value}`, null, {
+                    headers: {
+                        Authorization: 'Bearer ' + authService.getToken(),
+                        Accept: 'application/json',
+                    },
+                })
+                .then((response) => {
+                    loadCurrentBook();
+                    input.checked = false;
+                })
+                .catch((error) => {
+                    if (error.response?.status !== 200) {
+                        logOutAction(userContext, history);
+                    }
+                    input.checked = false;
+                });
+        }
+    };
 
     return (
         <Grid>
             <ReadingNowForm>
                 <StyledBookTitle fontSize="1.5rem" width="60%">
-                    Book title
+                    {loadingCurrent ? (
+                        <CircularProgress color="secondary" />
+                    ) : (
+                        `"${currentBook.title}" by ${currentBook.author}`
+                    )}
                 </StyledBookTitle>
                 <DefaultButton type="submit" width="30%">
                     Return book
@@ -100,15 +149,13 @@ const ReadingNowView = () => {
                 </Table>
             </TableContainer>
             <ButtonsContainer>
-                {submitButtons.map((button) => (
-                    <DefaultButton
-                        onClick={() => handleSubmitButtonClick(button)}
-                        width="30%"
-                        height="45px"
-                    >
-                        {button}
-                    </DefaultButton>
-                ))}
+                <DefaultButton
+                    onClick={handleSubmitButtonClick}
+                    width="30%"
+                    height="45px"
+                >
+                    Read
+                </DefaultButton>
             </ButtonsContainer>
         </Grid>
     );

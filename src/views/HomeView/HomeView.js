@@ -1,8 +1,9 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
+import checkboxActions from 'actions/checkboxActions';
 import { logOutAction } from 'actions/userActions';
 import axios from 'axios';
 import DefaultButton from 'components/common/buttons/DefaultButton';
-import TextInput from 'components/common/inputs/TextInput';
+import { SelectInput, TextInput } from 'components/common/inputs';
 import {
     Table,
     TableElement,
@@ -22,20 +23,14 @@ import {
     TableContainer,
 } from './style';
 
-const inputs = ['Title', 'Author', 'Genre', 'Bookshelf'];
+const inputs = [
+    { title: 'Title', type: 'TEXT' },
+    { title: 'Genre', type: 'TEXT' },
+    { title: 'Author', type: 'TEXT' },
+    { title: 'Bookshelf', type: 'SELECT' },
+];
 const submitButtons1 = ['Add', 'Search'];
 const submitButtons2 = ['Add to my list', 'Remove'];
-
-const clearCheckboxes = () => {
-    const checkboxes = document.querySelectorAll('input[type=checkbox]');
-    checkboxes.forEach((checkbox) => (checkbox.checked = false));
-};
-
-const handleTopCheckboxChange = (event) => {
-    const topCheckbox = event.target;
-    const checkboxes = document.querySelectorAll('input[type=checkbox]');
-    checkboxes.forEach((checkbox) => (checkbox.checked = topCheckbox.checked));
-};
 
 const HomeView = () => {
     const history = useHistory();
@@ -55,7 +50,7 @@ const HomeView = () => {
                 setBooks(response.data);
             })
             .catch((error) => {
-                if (error.response.status === 401) {
+                if (error.response?.status !== 200) {
                     logOutAction(userContext, history);
                 }
             });
@@ -85,7 +80,7 @@ const HomeView = () => {
                         loadBooks();
                     })
                     .catch((error) => {
-                        if (error.response.status === 401) {
+                        if (error.response?.status !== 201) {
                             logOutAction(userContext, history);
                         }
                     });
@@ -111,7 +106,7 @@ const HomeView = () => {
                         setBooks(response.data);
                     })
                     .catch((error) => {
-                        if (error.response.status === 401) {
+                        if (error.response?.status !== 200) {
                             logOutAction(userContext, history);
                         }
                     });
@@ -142,7 +137,7 @@ const HomeView = () => {
                         },
                     })
                     .catch((error) => {
-                        if (error.response.status === 401) {
+                        if (error.response?.status !== 200) {
                             logOutAction(userContext, history);
                         }
                     });
@@ -163,31 +158,47 @@ const HomeView = () => {
                         loadBooks();
                     })
                     .catch((error) => {
-                        if (error.response.status === 401) {
+                        if (error.response?.status !== 200) {
                             logOutAction(userContext, history);
                         }
                     });
                 break;
         }
 
-        clearCheckboxes();
+        checkboxActions.clearCheckboxes();
     };
 
     return (
         <Grid>
             <form id="first-form" onSubmit={(event) => event.preventDefault()}>
                 <InputsContainer>
-                    {inputs.map((input) => (
-                        <TextInput
-                            name={input.toLowerCase()}
-                            width="40%"
-                            height="40px"
-                            placeholder={input}
-                            colorPrimary={COLORS.foreground.primary}
-                            colorSecondary={COLORS.foreground.secondary}
-                            borderWidth="2px"
-                        />
-                    ))}
+                    {inputs.map((input) =>
+                        input?.type === 'TEXT' ? (
+                            <TextInput
+                                name={input?.title.toLowerCase()}
+                                width="40%"
+                                height="40px"
+                                placeholder={input?.title}
+                                colorPrimary={COLORS.foreground.primary}
+                                colorSecondary={COLORS.foreground.secondary}
+                                borderWidth="2px"
+                            />
+                        ) : (
+                            <SelectInput
+                                name={input?.title.toLowerCase()}
+                                width="40%"
+                                height="40px"
+                                colorPrimary={COLORS.foreground.primary}
+                                colorSecondary={COLORS.foreground.secondary}
+                                borderWidth="2px"
+                            >
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </SelectInput>
+                        )
+                    )}
                 </InputsContainer>
                 <ButtonsContainer>
                     {submitButtons1.map((button) => (
@@ -205,12 +216,14 @@ const HomeView = () => {
                     <TableRow evenColor={COLORS.background.lighterSecondary}>
                         <TableHeader width="5rem" position="center">
                             <input
-                                onChange={handleTopCheckboxChange}
+                                onChange={
+                                    checkboxActions.handleTopCheckboxChange
+                                }
                                 type="checkbox"
                             ></input>
                         </TableHeader>
                         {inputs.map((input) => (
-                            <TableHeader>{input}</TableHeader>
+                            <TableHeader>{input?.title}</TableHeader>
                         ))}
                     </TableRow>
                     {loading ? (

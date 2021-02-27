@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // TODO: disable highlighting input when disabled
-export const StyledInput = styled.input`
+export const StyledSelect = styled.select`
     width: ${(props) => props.width};
     height: ${(props) => props.height};
     padding-left: 15px;
@@ -15,6 +15,10 @@ export const StyledInput = styled.input`
     font-size: ${(props) => props.fontSize || '1rem'};
     display: ${(props) => props.display};
     transition: border-color ease-in-out 0.3s;
+
+    option {
+        color: black;
+    }
 
     &:hover,
     &:focus {

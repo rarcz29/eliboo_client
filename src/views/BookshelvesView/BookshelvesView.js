@@ -23,8 +23,7 @@ import {
     TableContainer,
 } from './style';
 
-const tableHeaders = ['Description'];
-const submitButtons = ['Remove'];
+const tableHeaders = ['Id', 'Description'];
 
 const BookshelvesView = () => {
     const history = useHistory();
@@ -159,6 +158,7 @@ const BookshelvesView = () => {
                                         type="checkbox"
                                     ></input>
                                 </TableElement>
+                                <TableElement>{bookshelf.id}</TableElement>
                                 <TableElement>
                                     {bookshelf.description}
                                 </TableElement>
@@ -168,15 +168,13 @@ const BookshelvesView = () => {
                 </Table>
             </TableContainer>
             <ButtonsContainer>
-                {submitButtons.map((button) => (
-                    <DefaultButton
-                        onClick={handleButtonClick}
-                        width="30%"
-                        height="45px"
-                    >
-                        {button}
-                    </DefaultButton>
-                ))}
+                <DefaultButton
+                    onClick={handleButtonClick}
+                    width="30%"
+                    height="45px"
+                >
+                    Remove
+                </DefaultButton>
             </ButtonsContainer>
         </Grid>
     );

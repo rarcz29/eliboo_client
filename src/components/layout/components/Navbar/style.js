@@ -21,6 +21,11 @@ export const StyledLink = styled(Link)`
     &:hover {
         color: ${COLORS.foreground.primary};
     }
+
+    @media (max-width: 1000px) {
+        font-size: 1rem;
+        margin: 5px;
+    }
 `;
 
 export const StyledAside = styled.aside`
@@ -28,4 +33,12 @@ export const StyledAside = styled.aside`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+
+    @media (max-width: 1000px) {
+        flex-direction: row;
+    }
+
+    @media (max-width: 650px) {
+        flex-direction: column;
+    }
 `;

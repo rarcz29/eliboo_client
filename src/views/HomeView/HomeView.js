@@ -271,7 +271,7 @@ const HomeView = () => {
                                 <TableElement>{book.title}</TableElement>
                                 <TableElement>{book.author}</TableElement>
                                 <TableElement>{book.genre}</TableElement>
-                                <TableElement>{book.bookshelf}</TableElement>
+                                <TableElement>{book.bookshelfId}</TableElement>
                             </TableRow>
                         ))
                     )}

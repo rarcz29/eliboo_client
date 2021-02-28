@@ -18,7 +18,6 @@ import COLORS from 'styles/colors';
 import { ButtonsContainer, Grid, TableContainer } from './style';
 
 const tableHeaders = ['Title', 'Author', 'Genre', 'Bookshelf'];
-const submitButtons = ['Remove'];
 
 const MyListView = () => {
     const history = useHistory();
@@ -111,22 +110,20 @@ const MyListView = () => {
                                 <TableElement>{book.title}</TableElement>
                                 <TableElement>{book.author}</TableElement>
                                 <TableElement>{book.genre}</TableElement>
-                                <TableElement>{book.bookshelf}</TableElement>
+                                <TableElement>{book.bookshelfId}</TableElement>
                             </TableRow>
                         ))
                     )}
                 </Table>
             </TableContainer>
             <ButtonsContainer>
-                {submitButtons.map((button) => (
-                    <DefaultButton
-                        onClick={() => handleSubmitButtonClick()}
-                        width="30%"
-                        height="45px"
-                    >
-                        {button}
-                    </DefaultButton>
-                ))}
+                <DefaultButton
+                    onClick={() => handleSubmitButtonClick()}
+                    width="30%"
+                    height="45px"
+                >
+                    Remove
+                </DefaultButton>
             </ButtonsContainer>
         </Grid>
     );

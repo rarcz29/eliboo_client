@@ -31,6 +31,13 @@ export const MenuWrapper = styled.div`
     width: ${(props) => props.width};
     height: ${(props) => parseInt(props.height) + parseInt(props.top) + 'px'};
     padding-top: ${(props) => props.top};
-    transition: right ease-in-out 0.3s;
+    transition: right ease-in-out 0.3s, left ease-in-out 0.3s;
     z-index: 999;
+
+    @media (max-width: 1000px) {
+        //position: relative;
+        height: ${(props) => parseInt(props.height)};
+        padding-top: 0;
+        left: ${(props) => props.right};
+    }
 `;

@@ -1,4 +1,5 @@
 import { logOutAction } from 'actions/userActions';
+import ROUTING from 'constants/routing';
 import { UserContext } from 'context/userContext';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -44,7 +45,7 @@ const MainLayout = ({ children }) => {
                     width="200px"
                     height="200px"
                 >
-                    <p>ACCOUNT</p>
+                    <p onClick={() => history.push(ROUTING.ACCOUNT)}>ACCOUNT</p>
                     <p onClick={() => logOutAction(userContext, history)}>
                         LOG OUT
                     </p>

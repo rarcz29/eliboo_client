@@ -46,8 +46,11 @@ const ReadingNowView = () => {
             })
             .catch((error) => {
                 setLoadingCurrent(false);
+                console.log(error.response);
 
-                if (error.response?.status !== 200) {
+                if (error.response?.status === 409) {
+                    alert('Someone else is currently reading that book');
+                } else if (error.response?.status !== 200) {
                     logOutAction(userContext, history);
                 }
             });
@@ -79,6 +82,25 @@ const ReadingNowView = () => {
         loadCurrentBook();
     }, []);
 
+    const handleRemove = (event) => {
+        event.preventDefault();
+
+        axios
+            .delete(API_ENDPOINTS.CURRENT_BOOK, {
+                headers: {
+                    Authorization: 'Bearer ' + authService.getToken(),
+                    Accept: 'application/json',
+                },
+            })
+            .then((response) => {
+                setLoadingCurrent(false);
+                loadCurrentBook();
+            })
+            .catch((error) => {
+                setLoadingCurrent(false);
+            });
+    };
+
     const handleSubmitButtonClick = () => {
         const input = document.querySelector('input[type="radio"]:checked');
 
@@ -105,12 +127,14 @@ const ReadingNowView = () => {
 
     return (
         <Grid>
-            <ReadingNowForm>
+            <ReadingNowForm onSubmit={handleRemove}>
                 <StyledBookTitle fontSize="1.5rem" width="60%">
                     {loadingCurrent ? (
                         <CircularProgress color="secondary" />
-                    ) : (
+                    ) : currentBook ? (
                         `"${currentBook.title}" by ${currentBook.author}`
+                    ) : (
+                        'empty'
                     )}
                 </StyledBookTitle>
                 <DefaultButton type="submit" width="30%">

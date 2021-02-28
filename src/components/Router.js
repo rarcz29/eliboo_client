@@ -3,6 +3,7 @@ import { UserContext } from 'context/userContext';
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
+    AccountView,
     BookshelvesView,
     HomeView,
     LoginView,
@@ -35,6 +36,7 @@ function Router() {
                             path={ROUTING.BOOKSHELVES}
                             component={BookshelvesView}
                         />
+                        <Route path={ROUTING.ACCOUNT} component={AccountView} />
                         <Route component={NotFoundView} />
                         <Redirect
                             from={[ROUTING.SIGN_UP, ROUTING.SIGN_IN]}

@@ -36,7 +36,9 @@ const HomeView = () => {
     const history = useHistory();
     const userContext = useContext(UserContext);
     const [loading, setLoading] = useState(true);
+    const [loadingBookshelves, setLoadingBookshelves] = useState(true);
     const [books, setBooks] = useState([]);
+    const [bookshelves, setBookshelves] = useState([]);
 
     const loadBooks = () => {
         axios
@@ -56,8 +58,30 @@ const HomeView = () => {
             });
     };
 
+    const loadBookshelves = () => {
+        axios
+            .get(API_ENDPOINTS.BOOKSHELVES, {
+                headers: {
+                    Authorization: 'Bearer ' + authService.getToken(),
+                    Accept: 'aplication/json',
+                },
+            })
+            .then((response) => {
+                setLoadingBookshelves(false);
+                setBookshelves(response.data);
+            })
+            .catch((error) => {
+                setLoadingBookshelves(false);
+
+                if (error.response?.status !== 200) {
+                    logOutAction(userContext, history);
+                }
+            });
+    };
+
     useEffect(() => {
         loadBooks();
+        loadBookshelves();
     }, []);
 
     const handleUpperSubmitButtonClick = (button) => {
@@ -192,10 +216,18 @@ const HomeView = () => {
                                 colorSecondary={COLORS.foreground.secondary}
                                 borderWidth="2px"
                             >
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                                {loadingBookshelves ? (
+                                    <CircularProgress
+                                        color="secondary"
+                                        size="1rem"
+                                    />
+                                ) : (
+                                    bookshelves.map((bookshelf) => (
+                                        <option value={bookshelf.description}>
+                                            {bookshelf.description}
+                                        </option>
+                                    ))
+                                )}
                             </SelectInput>
                         )
                     )}

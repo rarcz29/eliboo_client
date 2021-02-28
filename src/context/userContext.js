@@ -36,10 +36,6 @@ const reducer = (state, action) => {
                 },
                 errorMessage: '',
             };
-        case 'SIGN_UP':
-            // TODO: sing up method
-            console.log('SIGN_UP');
-            break;
         case 'LOG_OUT':
             return initialState;
         case 'SET_MESSAGE':

@@ -1,3 +1,4 @@
+import AccountView from './AccountView';
 import BookshelvesView from './BookshelvesView';
 import HomeView from './HomeView';
 import LoginView from './LoginView';
@@ -14,4 +15,5 @@ export {
     ReadingNowView,
     BookshelvesView,
     NotFoundView,
+    AccountView,
 };

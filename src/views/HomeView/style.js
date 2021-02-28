@@ -5,6 +5,11 @@ export const Grid = styled.div`
     height: calc(100vh - 110px);
     width: 100%;
     grid-template-rows: 210px minmax(200px, auto) 60px;
+
+    @media (max-width: 1000px) {
+        display: block;
+        height: auto;
+    }
 `;
 
 export const InputsContainer = styled.div`
